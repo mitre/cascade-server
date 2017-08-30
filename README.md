@@ -59,7 +59,7 @@ well (e.g. in a second console):
 ## Getting Started
 
 ### Account Creation 
-* In a webserver navigate to the server ( http://127.0.0.1:5000 , by default). 
+* In a browser navigate to the server ( http://127.0.0.1:5000 , by default). 
 * Click 'Login'
 * Click 'Create Account'
 * Alternatively, accounts can be created from the command line:
