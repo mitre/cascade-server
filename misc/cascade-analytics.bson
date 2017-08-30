@@ -1,0 +1,3337 @@
+[
+  {
+    "collection": "analytic", 
+    "content": [
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d60e"
+        }, 
+        "description": "The built-in WIndows tool sc.exe may be used to query, or manipulate existing services. This analytic detects all execution of the process sc.exe, and the different flags may separately be decoded into the corresponding ATT&CK techniques as separate analytics.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - sc.exe (Service Control Manager)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "sc.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d60f"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }, 
+              {
+                "$oid": "571a762fcefaff1b704aefda"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e537"
+            }
+          }
+        ], 
+        "description": "The \"create\" flag to the process \"sc.exe\" communicates with the Service Control Manager (services.exe) to create new services or drivers. This provides a form of Persistence, and often Privilege Escalation, because services typically run as SYSTEM processes.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - sc.exe \"create\" - Service Creations", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d60e"
+                }
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* create *"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d611"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e8"
+            }
+          }
+        ], 
+        "description": "The \"modify\" flag to the process \"sc.exe\" communicates with the Service Control Manager (services.exe) to query the state of existing services or drivers. It identifies information such as the current service state and type as well as exit codes for failed services.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - sc.exe \"query\" - Service Discovery", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d60e"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* query*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d612"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e8"
+            }
+          }
+        ], 
+        "description": "The \"queryex\" command to sc.exe extends the functionality provided by \"query\" command, but additionally adds the PID and FLAGS fields as output, which identify the process in which each service resides.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - sc.exe \"queryex\" - Service Discovery", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d60e"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* queryx*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d614"
+        }, 
+        "description": "Windows uses Distributed Computing Environment / Remote Procedure Calls (RPC) to expose and remotely call into known interfaces on other remote hosts. Like any built-in Windows mechanism, RPC may be used for benign or nefarious purposes. RPC can be used for any purposes and can generically be used remotely query, modify or execute configurations.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "start", 
+            "fields": {}, 
+            "object": "flow"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Network - RPC Activity", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "start", 
+          "object": "flow", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "dest_port", 
+            "value": "135"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d616"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4f0"
+            }
+          }
+        ], 
+        "description": "The \"user\" command to the net tool can be used to query users, which may be used for Discovery and potential information for future targets of credentials to gain.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"user\" - Query Users", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* user*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d619"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e554"
+            }
+          }
+        ], 
+        "description": "Windows SMB shares typically need to be mounted before file movement can occur. Normal users may mount shares as part of logon scripts or daily use, but command line usage in obscure process trees may be indicative of an APT moving laterally.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"use\" - Mount Shares", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* use *\\\\*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d634"
+        }, 
+        "description": "route command is used to anipulate network routing tables", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - route.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "route.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d61a"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e527"
+            }
+          }
+        ], 
+        "description": " Lists or disconnects sessions between the computer and other computers on the network ", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"session\" - Enumerate Shares", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "*session*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d61b"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e54f"
+            }
+          }
+        ], 
+        "description": "The \"localgroup\" argument to net.exe displays the groups on the local system.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"localgroup\" - Enumerate Local Groups", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* localgroup*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d61c"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4f6"
+            }
+          }
+        ], 
+        "description": "The \"view\" command to the Windows built-in tool net.exe tool enumerates the hosts on the domain. This can be used for discovering the layout, naming conventions or potential next steps for lateral movement.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"view\" - Enumerate Domain", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* view*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d61d"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e8"
+            }
+          }
+        ], 
+        "description": "The \"start\" command to net.exe displays the currently running services on the system.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"start\" - Enumerate Services", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* start*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d61e"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e527"
+            }
+          }
+        ], 
+        "description": "The netstat command lists the currently open connections and listening ports. Using different arguments, the tool can be used to match these connections to running processes, list ipv4 and ipv6 connections, and gather statistics on network adapters.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - netstat.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "netstat.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d622"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e536"
+            }
+          }, 
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e549"
+            }
+          }
+        ], 
+        "description": "The tasklist tool outputs a list of the running processes on a local or remote system. It can also be used to query services or loaded modules into processes.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - tasklist.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "tasklist.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d623"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdf"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e533"
+            }
+          }
+        ], 
+        "description": "Taskkill can be used to kill processes on a local or remote system.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - taskkill.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "taskkill.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d624"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4fe"
+            }
+          }
+        ], 
+        "description": "The Windows built-in tool nbtstat can be used to generate NetBIOS queries. It can remotely check for up/down status of a host with the command line arguments \"-a\" or \"-A\"", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - nbtstat.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "nbtstat.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d625"
+        }, 
+        "description": "The reg.exe tool is built-in to Windows and provides a command-line interface to the Windows registry that allows for queries, modifications and creations of entries.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - reg.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "reg.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d628"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdf"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e530"
+            }
+          }
+        ], 
+        "description": "The \"add\", \"load\" and \"import\" commands to reg.exe modify keys, values and data in the Windows registry.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - reg.exe - \"add/load/import\"  (Modifications)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d625"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "Operation", 
+                  "operator": "Or", 
+                  "terms": [
+                    {
+                      "_cls": "FieldComparison", 
+                      "comparator": "WildCard", 
+                      "field": "command_line", 
+                      "value": "* ADD *"
+                    }, 
+                    {
+                      "_cls": "FieldComparison", 
+                      "comparator": "WildCard", 
+                      "field": "command_line", 
+                      "value": "* COPY *"
+                    }, 
+                    {
+                      "_cls": "FieldComparison", 
+                      "comparator": "WildCard", 
+                      "field": "command_line", 
+                      "value": "* RESTORE *"
+                    }, 
+                    {
+                      "_cls": "FieldComparison", 
+                      "comparator": "WildCard", 
+                      "field": "command_line", 
+                      "value": "* LOAD *"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d62e"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }, 
+              {
+                "$oid": "571a762fcefaff1b704aefda"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4fd"
+            }
+          }
+        ], 
+        "description": "If winlogon.exe launches an instance of a command shell, it is likely a proof of persistence and privilege escalation. This can be done by assigning a debugger for the builtin accessibility features and triggering the feature from within the Remote Desktop login screen.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - Winlogon Spawning Cmd", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "Equals", 
+                "field": "parent_image_path", 
+                "value": "C:\\Windows\\System32\\winlogon.exe"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "Equals", 
+                "field": "exe", 
+                "value": "cmd.exe"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d630"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4f6"
+            }
+          }
+        ], 
+        "description": "The builtin ping tool sends ICMP echo requests to check the status of remote hosts", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - ping.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "ping.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d610"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e517"
+            }
+          }
+        ], 
+        "description": "The \"modify\" flag to the process \"sc.exe\" communicates with the Service Control Manager (services.exe) to modify existing services or drivers. This provides a form of Persistence, and often Privilege Escalation, because services typically run as SYSTEM processes.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - sc.exe \"modify\" - Service Modifications", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d60e"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* config *"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d61f"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e549"
+            }
+          }
+        ], 
+        "description": "The built-in tool netsh (shortened from \"network shell\") provides the capability to locally or even remotely interact with network components. It has been used to query advanced firewall rules with the \"netsh advfirewall\" command , enumerate network adapters or configure network settings, using \"netsh interface show\".", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - netsh.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "netsh.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d632"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4fe"
+            }
+          }
+        ], 
+        "description": "Windows program used to obtain information about local network adapters, such as IP and subnet information", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - ipconfig.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "ipconfig.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d638"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4fe"
+            }
+          }
+        ], 
+        "description": "Displays and modifies the IP-to-Physical address translation tables used by address resolution protocol (ARP).", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - arp.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "arp.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d639"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4ec"
+            }
+          }
+        ], 
+        "description": "The builtin tree command can recursively and graphically generate a tree of the file system and be used to map out a folder.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - tree.com", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "tree.com"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d63a"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4ed"
+            }
+          }
+        ], 
+        "description": "Displays operating system config info for a local or remote machine, including service pack levels.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - systeminfo.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "systeminfo.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d63b"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4ed"
+            }
+          }
+        ], 
+        "description": "Remotely queries the system configuration for a target system. May additionally include a username and password for remote authentication if the current token is not sufficient.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - systeminfo.exe - \"/s\" (Remote System)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d63a"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* /S *"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d63f"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }, 
+              {
+                "$oid": "571a762fcefaff1b704aefda"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "Task scheduling may be used to execute programs on a scheduled basis to persist adversary code or gain SYSTEM privileges.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - at.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "Equals", 
+                "field": "exe", 
+                "value": "at.exe"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* * *"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d640"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe0"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "In order to schedule a command on a remote host, the hostname is proceeded by two back slashes.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - at.exe (Remote)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d63f"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* \\\\*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d641"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "Task scheduling may be used to execute programs on a scheduled basis to persist adversary code or gain SYSTEM privileges.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - schtasks.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "schtasks.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d642"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "The \"/create\" and \"/change\" arguments to schtasks.exe allow privileged users to create and change scheduled tasks. For now, this command only looks at the creation of new scheduled tasks.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - schtasks.exe - Creation/Modification", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d641"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* /Create*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d643"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe0"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "Arguments needed to modify the scheduled tasks of a system.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - schtasks.exe - Run", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d641"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* /Run*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d644"
+        }, 
+        "coverage": [], 
+        "description": "Queries of schedule tasks using \"schtasks /query\" could potentially indicate use of the tool to enumerate information about the environment in order to look for privilege escalation opportunities.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - schtasks.exe - Queries", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d641"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "Operation", 
+                  "operator": "Or", 
+                  "terms": [
+                    {
+                      "_cls": "FieldComparison", 
+                      "comparator": "WildCard", 
+                      "field": "command_line", 
+                      "value": "* /Query*"
+                    }, 
+                    {
+                      "_cls": "FieldComparison", 
+                      "comparator": "WildCard", 
+                      "field": "command_line", 
+                      "value": "* /ShowSid*"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d60d"
+        }, 
+        "coverage": [
+          {
+            "level": "High", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }, 
+              {
+                "$oid": "571a762fcefaff1b704aefda"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e51b"
+            }
+          }
+        ], 
+        "description": "The services.exe process hosts the Windows Service Control Manager (SCM). Most Windows services execute in the context of an individual process or a part of a service group and hosted in a DLL loaded by svchost.exe. Child processes of services.exe indicate the execution of Windows services.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Event - Service Processes (children of services.exe)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "parent_image_path", 
+            "value": "c:\\windows\\system32\\services.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "5716a971704a12d841ed3162"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe0"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "Looking for \"schtasks\" commands to remote machines should be considered highly suspicious and many environments, as it can be used to remotely execute command on another machine. This may be combined with a lateral movement activity, such as an SMB file write to move an implant from one hostto the next.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - schtasks.exe - Remote (/s)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d641"
+                }
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* /s *"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "571e4fb57f57a7d73599d9dc"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdf"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4f1"
+            }
+          }
+        ], 
+        "description": "PowerShell can be used for many legitimate or illegitimate activity. It is commonly used to provide a more robust CLI and can allow for custom scripts to be run natively without spawning additional processes. This functionality is key for an adversary to evade defenses as process monitoring is increasingly ubiquitous.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - powershell.exe - Windows PowerShell Engine", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "powershell.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d63e"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e50e"
+            }
+          }
+        ], 
+        "description": "remote services allows users to gain access to other system on a network", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - telnet.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "telnet.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d649"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdc"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e6"
+            }
+          }
+        ], 
+        "description": "The 7zip tool is another archiver and may be used for exfiltration.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools - (Third-Party) 7z", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "7zip.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d64a"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdc"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e6"
+            }
+          }
+        ], 
+        "description": "compress data for possible exfiltration", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Third-Party) - RAR", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "rar.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d64b"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdc"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e6"
+            }
+          }
+        ], 
+        "description": "WinZip is one of many known archivers that may be used for exfiltration.", 
+        "enabled": false, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "name": "Tools (Third-Party) - WinZip", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "WildCard", 
+            "field": "exe", 
+            "value": "winzip*.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d615"
+        }, 
+        "description": "The net.exe command is a generic tool that is built-in to Windows that can be used to query and modify users and services, enumerate and mount file shares, and interfaces with several other key components of the operating system. It can be described as a Swiss Army Knife because of its versatility.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - net.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "net.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d63d"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e50e"
+            }
+          }
+        ], 
+        "description": "SSH is used to remotely gain console access on another machine, assuming valid credentials are present and the machine is running an SSH server.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Third-Party) - ssh.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "ssh.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d60c"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e8"
+            }
+          }
+        ], 
+        "description": "Detect network connections from the services.exe. This implies RPC activity to the Service Control Manager. Although the specific calls made can't be distinguished, the activity in itself may indicate a lateral movement attempt, discovery of running services or other remote modifications to the system services.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "start", 
+            "fields": {}, 
+            "object": "flow"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Network - Remote Service Manipulation", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "start", 
+          "object": "flow", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "services.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d613"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe0"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e51b"
+            }
+          }
+        ], 
+        "description": "The \"start\" flag to the process \"sc.exe\" communicates with the Service Control Manager (services.exe) to start existing services. This may be used in conjunction with replacing the service binary (ATT&CK:T1044) when its file permissions are not properly restricted. A service execution will grant an adversary execution, and typically escalate privileges.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - sc.exe \"start\" - Service Discovery", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d60e"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* start *"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d617"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4f0"
+            }
+          }
+        ], 
+        "description": "The dsquery.exe tool queries objects in the active directory. It is built-in to Windows servers, but can be added to other workstations as part of the server administration tools package. APTs have used it to identify key accounts, workstations and servers to target, and to build out a mapping of the organizational structure of the enterprise.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - dsquery.exe - Domain Server Queries", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "Equals", 
+                  "field": "exe", 
+                  "value": "dsquery.exe"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "56c6ad75cefaff28c888d618"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e527"
+            }
+          }
+        ], 
+        "description": "The \"use\" command to the net.exe tool can be used to mount and enumerate the mounted and disconnected shares. This analytic looks for instances of the command that do not contain shares and servers in the command line, indicating that it will be used for enumeration.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"use\" - Enumerate Shares", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* use"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "5785bb8155f0953350fed27c"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4f0"
+            }
+          }
+        ], 
+        "description": "The built-in whoami executable will display the user of the active token. It can also be used to display the active privileges, group membership, and to get the path within the Active Directory.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - whoami.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "whoami.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "577c2186ce4ace904e344339"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53c"
+            }
+          }
+        ], 
+        "description": "The Windows built-in command line interface, cmd.exe, is used to provide a shell and launch processes and batch files. An APT may use this to have a single shell to run processes from, or may use seperate shells. The tool \"cmd.exe\" runs many times and this analytic will not work as a single means of detection. However, it may be useful in a second pass or by looking for outliers to identify unusual programs that spawn a shell.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - cmd.exe (Command Shell)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "cmd.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "5786d41c55f0953350fed27e"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdc"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4e6"
+            }
+          }
+        ], 
+        "description": "Programs ending with \"*zip\" tools may be used to create archives, which may be used in exfiltration.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Third-Party) - zip", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "Or", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "Equals", 
+                "field": "exe", 
+                "value": "winzip*.exe"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "exe", 
+                "value": "zip*.exe"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "578cc6b920455df811d233d6"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e554"
+            }
+          }
+        ], 
+        "description": "Administrative shares, such as ADMIN$, IPC$ and C$ can only be mounted by accounts with administrative access on a machine. These commands should be only run by trusted users to known machines, but are commonly used by the APT when trying to laterally move to another host.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"use\" - Mount Admin Shares", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d619"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* *\\\\*\\*$*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "578e3c8920455df811d233d7"
+        }, 
+        "coverage": [], 
+        "description": "Remotely queries the time of another host, using NetBIOS. Can be a prerequisite for some Lateral Movement activities, such as scheduling a task, which require knowing (or guessing) the time on a remote host.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - net.exe - \"time\" (Remote System)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d615"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* time *"
+                }
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* \\\\*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "578e4ffccefaff3e642968c6"
+        }, 
+        "coverage": [
+          {
+            "level": "Low", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e544"
+            }
+          }
+        ], 
+        "description": "Infer that a file copy has been made into a network share via the \"copy\" command to cmd, or the xcopy process has a network path \\\\hostname\\share in the command-line. Note: This analytic is a work in progress and must be updated to differentiate between source and target paths.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - Copy Into Network Share (via \"cmd /c copy\" or \"xcopy\")", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "Operation", 
+                "operator": "Or", 
+                "terms": [
+                  {
+                    "_cls": "Operation", 
+                    "operator": "And", 
+                    "terms": [
+                      {
+                        "_cls": "FieldComparison", 
+                        "comparator": "Equals", 
+                        "field": "exe", 
+                        "value": "cmd.exe"
+                      }, 
+                      {
+                        "_cls": "FieldComparison", 
+                        "comparator": "WildCard", 
+                        "field": "command_line", 
+                        "value": "* copy *"
+                      }
+                    ]
+                  }, 
+                  {
+                    "_cls": "FieldComparison", 
+                    "comparator": "Equals", 
+                    "field": "exe", 
+                    "value": "xcopy.exe"
+                  }
+                ]
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* \\\\*\\"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "579915d2b16e3c9abd53a159"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe2"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4ed"
+            }
+          }
+        ], 
+        "description": "The Windows built-in command \"hostname\" can be used to return the hostname of the active host. This does not include the domain. It can be used legitimately but may be used by an adversary to gain information about the operating host and to confirm the location of a callback.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Tools (Microsoft) - hostname.exe", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "exe", 
+            "value": "hostname.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "579a56ccb16e3c9abd53a15a"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdf"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e534"
+            }
+          }
+        ], 
+        "description": "Detect processes injecting remote threads (CreateRemoteThread, NtCreateThreadEx, etc.) by looking for thread creations where the source process is not the target process.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "remote_create", 
+            "fields": {}, 
+            "object": "thread"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - Remote Thread Creation", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "remote_create", 
+          "object": "thread", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "NotEquals", 
+                "field": "target_pid", 
+                "value": "4"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "NotEquals", 
+                "field": "src_pid", 
+                "value": "4"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "579b59abb16e3c9abd53a15b"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe0"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e51f"
+            }
+          }
+        ], 
+        "description": "WMIC.exe can be used to remotely launch executables on another machine. The target processes will have the parent of WmiPrvSe.exe.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "name": "Tools (Microsoft) - wmic.exe - \"/node:\" and \"process call create\" - Remote Execution", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* process *"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* call *"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* create *"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* /node:*"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "exe", 
+                "value": "wmic.exe"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": "579a48bb21771735068c6ba3", 
+        "coverage": [], 
+        "description": "PowerShell can run custom scripts using the \"-ExecutionPolicy bypass\" arguments. By default, unsigned PowerShell scripts will not run and the execution policy needs to be changed, which can be done within PowerShell or via the command line arguments.", 
+        "enabled": false, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "name": "Tools (Microsoft) - powershell.exe - Bypass Execution Policy", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": "571e4fb57f57a7d73599d9dc"
+              }, 
+              {
+                "_cls": "DataModelQuery", 
+                "action": "create", 
+                "object": "process", 
+                "query": {
+                  "_cls": "FieldComparison", 
+                  "comparator": "WildCard", 
+                  "field": "command_line", 
+                  "value": "* bypass*"
+                }
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "579b6a5cb16e3c9abd53a15c"
+        }, 
+        "coverage": [], 
+        "description": "PowerShell can run commands encoded in base64 using the \"-EncodedCommand\" argument. This is a known technique used by APTs and common tools that allows for short scripts to be encoded onto the command line, evading many defensive measures.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - powershell.exe - EncodedCommand", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": "571e4fb57f57a7d73599d9dc"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* -EncodedCommand*"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "57acf4a3866101d40cd8be47"
+        }, 
+        "coverage": [
+          {
+            "level": "High", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "As a second pass, it can be helpful to identify processes spawned by taskeng.exe to identify execution of scheduled tasks.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "second-pass", 
+        "name": "Event - Scheduled Task Processes (children of taskeng.exe)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "Equals", 
+            "field": "parent_exe", 
+            "value": "taskeng.exe"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "57d0241ac78b0b34d5077e0f"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefdf"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e534"
+            }
+          }
+        ], 
+        "description": "Look for DLL Injection at the LoadLibraryA or LoadLibraryW entry points.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "remote_create", 
+            "fields": {}, 
+            "object": "thread"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - LoadLibrary Injection", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "remote_create", 
+          "object": "thread", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "579a56ccb16e3c9abd53a15a"
+                }
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "start_function", 
+                "value": "LoadLibrary*"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "57d72021c78b0b34d5077e10"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe0"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e51b"
+            }
+          }
+        ], 
+        "description": "Windows runs the Service Control Manager (SCM) within the process services.exe. Windows launches services as independent processes or DLL loads within a svchost.exe group. To be a legitimate service, a process (or DLL) must have the appropriate service entry point SvcMain. If an application does not have the entry point, then it will timeout (default is 30 seconds) and the process will be killed.\nTo survive the timeout, adversaries and red teams can create services that direct to cmd.exe with the flag /c, followed by the desired command. The /c flag causes the command shell to run a command and immediately exit. As a result, the desired program will remain running and it will report an error starting the service. This analytic will catch that command prompt instance that is used to launch the actual malicious executable.\nAdditionally, the children and descendants of services.exe will run as a SYSTEM user by default. Thus, services are a convenient way for an adversary to gain Persistence and Privilege Escalation.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - Services Launching Cmd", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "Operation", 
+          "operator": "And", 
+          "terms": [
+            {
+              "_cls": "AnalyticReference", 
+              "analytic": {
+                "$oid": "56c6ad75cefaff28c888d60d"
+              }
+            }, 
+            {
+              "_cls": "AnalyticReference", 
+              "analytic": {
+                "$oid": "577c2186ce4ace904e344339"
+              }
+            }
+          ]
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "582f29b9f05f26549cdc29b0"
+        }, 
+        "coverage": [
+          {
+            "level": "High", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }, 
+              {
+                "$oid": "571a762fcefaff1b704aefda"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e537"
+            }
+          }
+        ], 
+        "description": "Detect registry modifications to services stored in the path HKLM\\SYSTEM\\CurrentControlSet\\Services. Although services can be created or modified by using existing tools, such as sc.exe, there are stealthier ways, such as using the Windows API directly. By monitoring the registry locations, all service modifications can be detected. Additionally, when modifying these services via the Service Control Manager (SCM) API, the process \"services.exe\" will be responsible for registry modifications. Modifications made to these locations by other tools may be more suspicious.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "write_value", 
+            "fields": {}, 
+            "object": "registry"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Registry Persistence - Service Path Creation/Modification", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "write_value", 
+          "object": "registry", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "key", 
+                "value": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\*"
+              }, 
+              {
+                "_cls": "Operation", 
+                "operator": "Or", 
+                "terms": [
+                  {
+                    "_cls": "FieldComparison", 
+                    "comparator": "Equals", 
+                    "field": "value", 
+                    "value": "ImagePath"
+                  }, 
+                  {
+                    "_cls": "FieldComparison", 
+                    "comparator": "Equals", 
+                    "field": "value", 
+                    "value": "ServiceDll"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "582f2e51f05f26549cdc29b1"
+        }, 
+        "coverage": [
+          {
+            "level": "High", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e4fd"
+            }
+          }
+        ], 
+        "description": "Detect changes to the debuggers by monitoring the registry in known locations. When a debugger is set for an application (defined by the subkey), the value \"Debugger\" is set to a program that will be spawned instead as a \"debugger\".", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "write_value", 
+            "fields": {}, 
+            "object": "registry"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Registry Persistence - Accessibility Feature Debuggers", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "write_value", 
+          "object": "registry", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "Equals", 
+                "field": "value", 
+                "value": "Debugger"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "key", 
+                "value": "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*"
+              }, 
+              {
+                "_cls": "Operation", 
+                "operator": "Or", 
+                "terms": [
+                  {
+                    "_cls": "FieldComparison", 
+                    "comparator": "WildCard", 
+                    "field": "key", 
+                    "value": "*\\sethc.exe"
+                  }, 
+                  {
+                    "_cls": "FieldComparison", 
+                    "comparator": "WildCard", 
+                    "field": "key", 
+                    "value": "*\\narrator.exe"
+                  }, 
+                  {
+                    "_cls": "FieldComparison", 
+                    "comparator": "WildCard", 
+                    "field": "key", 
+                    "value": "*\\magnify.exe"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "586fdff2f05f264860a5ff6d"
+        }, 
+        "coverage": [
+          {
+            "level": "High", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e544"
+            }
+          }
+        ], 
+        "description": "Identify instance of file creations where files are written to network paths, by looking for file paths that resemble\n\"\\\\hostname\\share\\*\". Remote file creations can identify files being pushed onto other systems over SMB in order to accomplish lateral movement.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "file"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - File Creations to Network Paths", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "file", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "WildCard", 
+            "field": "file_path", 
+            "value": "\\\\*\\*"
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "586fe0d1f05f264860a5ff6e"
+        }, 
+        "coverage": [
+          {
+            "level": "High", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefde"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e554"
+            }
+          }
+        ], 
+        "description": "This analytic is based off of \"Analytic - File Creations to Network Paths\", but additionally filters down analytics further to only identify instances of files copied into remote network shares.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "file"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Analytic - File Creations to Admin Shares", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "file", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "586fdff2f05f264860a5ff6d"
+                }
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "file_path", 
+                "value": "*\\*$\\*"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "586fe3c5f05f264860a5ff71"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefda"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "Looking for \"schtasks\" commands to remote machines should be considered highly suspicious and many environments, as it can be used to remotely execute command on another machine. This may be combined with a lateral movement activity, such as an SMB file write to move an implant from one hostto the next.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Tools (Microsoft) - schtasks.exe - Privilege Escalation via SYSTEM Tasks", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "Operation", 
+            "operator": "And", 
+            "terms": [
+              {
+                "_cls": "AnalyticReference", 
+                "analytic": {
+                  "$oid": "56c6ad75cefaff28c888d641"
+                }
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "WildCard", 
+                "field": "command_line", 
+                "value": "* /RU *SYSTEM*"
+              }, 
+              {
+                "_cls": "FieldComparison", 
+                "comparator": "NotEquals", 
+                "field": "user", 
+                "value": "NT AUTHORITY\\SYSTEM"
+              }
+            ]
+          }
+        }
+      }, 
+      {
+        "_cls": "Analytic.CascadeAnalytic", 
+        "_id": {
+          "$oid": "586fe826f05f264860a5ff73"
+        }, 
+        "coverage": [
+          {
+            "level": "Moderate", 
+            "tactics": [
+              {
+                "$oid": "571a762fcefaff1b704aefe1"
+              }
+            ], 
+            "technique": {
+              "$oid": "571a773dcefaff3c6ca4e53a"
+            }
+          }
+        ], 
+        "description": "As a second pass, it can be helpful to identify processes spawned by taskeng.exe to identify execution of processes spawned from svchost. This detects scheduled task processes on Windows operating systems >= 8.0. Windows 7 and prior had a separate process, taskeng.exe to run services.", 
+        "enabled": true, 
+        "mapped_events": [
+          {
+            "action": "create", 
+            "fields": {}, 
+            "object": "process"
+          }
+        ], 
+        "mode": "first-pass", 
+        "name": "Event - Scheduled Task Processes (children of svchost -k netsvcs)", 
+        "platform": "CASCADE", 
+        "query": {
+          "_cls": "DataModelQuery", 
+          "action": "create", 
+          "object": "process", 
+          "query": {
+            "_cls": "FieldComparison", 
+            "comparator": "WildCard", 
+            "field": "parent_command_line", 
+            "value": "*\\svchost.exe -k netsvcs"
+          }
+        }
+      }
+    ]
+  }
+]

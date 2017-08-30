@@ -1,0 +1,8 @@
+<div>
+    Showing {{rows.length}} of {{parsedEvents.length}} Events
+    <span><button class="btn btn-default pull-right" ng-click="ctrl.toggleEvents()">
+        <span ng-hide="ctrl.showAll">Show All Events</span>
+        <span ng-show="ctrl.showAll">Show Only ATT&amp;CK Events</span>
+    </button>
+    <datatable rows="rows" columns="columns" headers="headers" html-bind="true"></datatable>
+</div>

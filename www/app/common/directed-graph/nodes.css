@@ -1,0 +1,149 @@
+.svg-container {
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+}
+
+
+.node-info {
+    position:absolute;
+    right:0;
+    width:400px;
+    background-color: white;
+    padding: 15px;
+    word-wrap: break-word;
+    opacity: 0.9;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.node-info > h3:first-child {
+    margin-top: 0px;
+}
+
+.linklabel {
+    fill:black;
+    opacity:.8;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+  z-index: 0;
+}
+
+.rounded {
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.node circle {
+  fill: lightgray;
+  opacity: 0.96;
+  stroke: black;
+  stroke-width: 2px;
+  stroke-opacity: 0.5;
+}
+
+.low-zoom text {
+    display: none;
+}
+
+.node.highlight circle {
+  stroke: red;
+  stroke-width: 10;
+}
+
+.node text {
+   font-size:13px;
+    fill: black;
+}
+
+.node text.title {
+   font-weight: bold;
+}
+
+.link {
+  stroke: gray;
+  fill:none;
+  stroke-width: 1;
+  opacity: 1;
+  /* marker-end: url("#arrowhead"); /*  /* this doesn't work in firefox for the class and needs to be set individually" */
+}
+
+/*
+ * CSS for Data Model / Event Types
+ * - needs to include both the graph and rendering on the legend
+ */
+.node.driver circle, .legend .driver {
+  fill: cyan;
+  background-color: cyan;
+}
+
+.node.module circle, .legend .driver {
+  fill: lightblue;
+  background-color: cyan;
+}
+
+.node.process circle, .legend .process {
+  fill: cadetblue;
+  background-color: cadetblue;
+}
+
+.node.registry circle, .legend .registry {
+  fill: yellow;
+  background-color: yellow;
+}
+
+.node.file circle, .legend .file {
+  fill: yellowgreen;
+  background-color: yellowgreen;
+}
+
+.node.flow circle, .legend .flow {
+   fill: orange;
+   background-color: orange;
+}
+
+
+.node.thread circle, .legend .thread {
+  fill: green;
+  background-color: green;
+}
+
+.node.user_session circle, .legend .user_session {
+  fill: yellowgreen;
+  background-color: yellowgreen;
+}
+
+.node.analytic_result circle, .legend .analytic_result, .node.alert circle, .legend .alert {
+    fill: #f55;
+    background-color: #f55;
+}
+
+
+.node.event circle, .legend .event {
+    fill: gray;
+    background-color: gray;
+}
+
+.node.event text {
+    fill: white !important;
+}
+
+.node.technique circle, .legend .technique {
+    background-color: lightblue;
+    fill: lightblue;
+}
+
+.node.tactic circle, .legend .tactic {
+    background-color: #d77;
+    fill: #d77;
+}
+
+.node.host circle, .legend .host {
+    background-color: red;
+    fill: red;
+}

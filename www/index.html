@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<!--
+NOTICE
+
+This software was produced for the U. S. Government
+under Basic Contract No. W15P7T-13-C-A802, and is
+subject to the Rights in Noncommercial Computer Software
+and Noncommercial Computer Software Documentation
+Clause 252.227-7014 (FEB 2012)
+
+(C) 2017 The MITRE Corporation.
+-->
+
+
+<!-- TODO: dynamically load js (hard) -->
+<!-- Libraries first -->
+<script src="/lib/js/jquery-2.0.3.min.js"></script>
+<script src="/lib/js/angular.js"></script>
+<script src="/lib/js/angular-ui-router.js"></script>
+<script src="/lib/js/moment.min.js"></script>
+<script src="/lib/js/bootstrap.js"></script>
+<script src="/lib/js/bootstrap-toggle.min.js"></script>
+<script src="/lib/js/d3.v3.min.js"></script>
+<script src="/lib/js/angular-cookies.min.js"></script>
+<script src="/lib/js/angular-filter.min.js"></script>
+<script src="/lib/js/datetimepicker.js"></script>
+<script src="/lib/js/datetimepicker.templates.js"></script>
+<script src="/lib/js/jquery.dataTables.min.js"></script>
+<script src="/lib/js/underscore-min.js"></script>
+<script src="/lib/js/angular-sanitize.min.js"></script>
+
+
+<!-- CASCADE common code (directives, etc.) -->
+<script src="/app/app.js"></script>
+<script src="/app/services.js"></script>
+<script src="/app/common/attack-matrix/matrix.directive.js"></script>
+<script src="/app/common/attack-tags/attack-tags.directive.js"></script>
+<script src="/app/common/bar-graph/bar-graph.directive.js"></script>
+<script src="/app/common/directed-graph/directed-graph.directive.js"></script>
+<script src="/app/common/directed-graph/event-graph.directive.js"></script>
+<script src="/app/common/event-tags/event-tags.directive.js"></script>
+<script src="/app/common/event-timeline/event-timeline.directive.js"></script>
+<script src="/app/common/file-upload/file-upload.directive.js"></script>
+<script src="/app/common/job-progress-bar/job-progress-bar.directive.js"></script>
+<script src="/app/common/loader/loader.directive.js"></script>
+<script src="/app/common/navbar/navbar.directive.js"></script>
+<script src="/app/common/progress-bar/progress-bar.directive.js"></script>
+<script src="/app/common/datatable/datatable.directive.js"></script>
+<script src="/app/common/timepicker/input-spinner.directive.js"></script>
+<script src="/app/common/timepicker/relative-timepicker.directive.js"></script>
+<script src="/app/common/timepicker/timepicker.directive.js"></script>
+<script src="/app/common/tree-graph/tree.directive.js"></script>
+
+<!-- components (views, etc) -->
+<script src="/app/components/account/add-database-login.controller.js"></script>
+<script src="/app/components/account/create-account.controller.js"></script>
+<script src="/app/components/account/forgot-password.controller.js"></script>
+<script src="/app/components/account/login.controller.js"></script>
+<script src="/app/components/account/manage-account.controller.js"></script>
+<script src="/app/components/account/reset-password.controller.js"></script>
+<script src="/app/components/analytics-forms/analytics-form-base.directive.js"></script>
+<script src="/app/components/analytics-forms/configuration-buttons.directive.js"></script>
+<script src="/app/components/analytics-forms/configure-analytics.controller.js"></script>
+<!-- <script src="/app/components/analytics-forms/create-analytic.controller.js"></script> -->
+<script src="/app/components/analytics-forms/list-analytics.controller.js"></script>
+<script src="/app/components/analytics-forms/modify-analytic.controller.js"></script>
+<script src="/app/components/analytics-forms/run-analytics.controller.js"></script>
+<script src="/app/components/analytics-forms/run-custom.controller.js"></script>
+<script src="/app/components/analytics-forms/tune-analytics.controller.js"></script>
+<script src="/app/components/attack/analytic-coverage.controller.js"></script>
+<script src="/app/components/attack/tactic-sets.controller.js"></script>
+<script src="/app/components/databases/connect-database.controller.js"></script>
+<script src="/app/components/databases/manage-databases.controller.js"></script>
+<script src="/app/components/dashboard/dashboard.controller.js"></script>
+<script src="/app/components/data-model/data-model.controller.js"></script>
+<script src="/app/components/directed-graphs/alerts.controller.js"></script>
+<script src="/app/components/directed-graphs/events.controller.js"></script>
+<script src="/app/components/directed-graphs/hosts.controller.js"></script>
+<script src="/app/components/directed-graphs/techniques.controller.js"></script>
+<script src="/app/components/jobs/job-manager.controller.js"></script>
+<script src="/app/components/session-timeline/session-timeline.controller.js"></script>
+<script src="/app/components/session-form/sessions.controller.js"></script>
+<script src="/app/components/tree-graphs/results.controller.js"></script>
+<script src="/app/components/tuning/tuning.controller.js"></script>
+<script src="/app/common/host-timeline/host-timeline.directive.js"></script>
+
+<!-- TODO: dynamically load CSS -->
+
+<!-- Libraries first-->
+<link href="/lib/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="/lib/css/bootstrap-toggle.min.css" rel="stylesheet" type="text/css">
+<link href="/lib/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+<link href="/lib/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<link href="/lib/css/angular-toastr.min.css" rel="stylesheet" type="text/css">
+
+<!-- CASCADE custom css -->
+<!-- Included via map_head.html
+<link href="/app/css/map.css" rel="stylesheet" type="text/css">
+/-->
+<link href="/app/common/attack-matrix/matrix.css" rel="stylesheet" type="text/css">
+<link href="/app/common/bar-graph/bar-graph.css" rel="stylesheet" type="text/css">
+<!-- <link href="/app/common/directed-graph/directed-graph.css" rel="stylesheet" type="text/css"> -->
+<link href="/app/common/directed-graph/legend.css" rel="stylesheet" type="text/css">
+<link href="/app/common/directed-graph/nodes.css" rel="stylesheet" type="text/css">
+<link href="/app/common/host-timeline/host-timeline.css" rel="stylesheet" type="text/css">
+<link href="/app/common/timepicker/input-spinner.css" rel="stylesheet" type="text/css">
+<link href="/app/common/tree-graph/tree.css" rel="stylesheet" type="text/css">
+<link href="/app/common/loader/loader.css" rel="stylesheet" type="text/css">
+<link href="/app/common/style.css" rel="stylesheet" type="text/css">
+
+<html ng-app="cascade">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CASCADE</title>
+
+    <div ui-view="head-block"></div>
+  </head>
+
+  <body style="padding-top:50px">
+    <navbar></navbar>
+    <div class="container-fluid height-full" style="padding-top:20px;">
+      <div ui-view="content-block" class="height-full"></div>
+    </div>
+  </body>
+</html>

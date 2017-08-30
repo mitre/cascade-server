@@ -1,0 +1,18 @@
+<div>
+  <table class="table table-bordered table-hover attackTable">
+    <thead>
+      <tr>
+        <th ng-repeat="tactic in tactics"> <!-- ng-click="ctrl.toggleTactic(tactic)" -->
+          <a href="{{tactic.url}}">{{tactic.name}}</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in matrix">
+          <td ng-repeat="cell in row" ng-class="classes[cell.tactic._id][cell.technique._id]">
+          <!-- ng-mouseover="ctrl.showEvents(cell)" -->
+          <a ng-if="cell.technique" href="{{cell.technique.url}}">{{cell.technique.name}}</a>
+            <span class="badge" ng-show="heatMap[cell.tactic._id][cell.technique._id]">{{heatMap[cell.tactic._id][cell.technique._id]}}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

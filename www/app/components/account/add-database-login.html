@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title">Add Database to Account</h1>
+        </div>
+        <div class="panel-body">
+			<form ng-submit="submit()">
+				<div>
+					<div class="form-group">
+						<label for="fullName" style="color:gray;">DATABASES</label>
+					</div>
+					<div class="form-group">
+						<label for="databaseId">Database Instance</label>
+						<select class="form-control" id="databaseId" name="database_id" ng-model="selection">     
+							<option ng-repeat="db in addDbCtrl.databases" value="{{db._id}}">{{db.name}}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="dbUsername">User Name</label>
+						<input type="text" class="form-control" id="dbUsername" ng-model="username" value="{{user.username}}">
+					</div>
+					<div class="form-group">
+						<label for="dbPassword">Password</label>
+						<input type="password" class="form-control" id="dbPassword" ng-model="password" placeholder="Password">
+					</div>
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+        </div>
+    </div>
+</div>

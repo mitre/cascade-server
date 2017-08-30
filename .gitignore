@@ -1,0 +1,13 @@
+*.swp
+*.pyc
+.idea
+*.tmp
+cache/
+misc/*.crt
+misc/*.csr
+misc/*.pem
+misc/*.key
+/venv
+/*.bson
+gen/*
+/conf/cascade.yml

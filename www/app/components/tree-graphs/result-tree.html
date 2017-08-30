@@ -1,0 +1,44 @@
+<div class="height-full pad-bottom">
+	<div class="key_config" style="padding-left:30px;padding-right:30px;height:120px;"><!-- double 15 because form-group is -15px -->
+		<form class="form-horizontal" >
+			<!-- <input type="hidden" name="analytic" value="{{analytic.name}}" method="post"> -->
+		<div class="form-group">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					{{selectedAnalytic.name || 'Triggered Analytics'}} <span class="caret"></span>
+				</button> 
+				<ul class="dropdown-menu"> 
+					<li ng-repeat="analytic in triggeredAnalytics | orderBy: 'name'">
+						<a ng-click="$parent.selectedAnalytic = analytic"><span class="badge badge-fixed">{{treeIndex[analytic._id].root.size}}</span> {{analytic.name}}  </a>
+					</li> 
+				</ul> 
+			</div>
+
+		    <div class="pull-right">
+	  		  <button class="btn btn-default" type="button" ng-click="transposed = !transposed"><span ng-class="'glyphicon glyphicon-option-' + (transposed ? 'horizontal' : 'vertical')"></span> Transpose</button><!--
+		      <button class="btn btn-default" type="button" ng-click="reset()"><span class="glyphicon glyphicon-repeat"></span> Restore Original</button> -->
+		      <button class="btn btn-default" type="button" ng-click="reCluster()"><span class="glyphicon glyphicon-refresh"></span> Update Fields</button>
+		      <!--
+		      <button class="btn btn-default" type="button" id="save-changes" ng-click="saveChanges()"><span class="glyphicon glyphicon-floppy-save"></span> Save Changes</button>
+		      -->
+		    </div>
+		</div>
+
+
+	      <div class="form-group">
+	        <label>Discovered Fields</label>
+	        <div class="field-boxes">
+	          <label class="checkbox-inline" ng-repeat="k in resultTree.keys | orderBy:'name'"><input type="checkbox" value="{{k.name}}" ng-model="k.status" name="key"> {{k.name}} </label>
+	        </div>
+	     </div>
+		</form>
+
+	</div>
+	<div style="height:calc(100% - 120px - 20px);">
+		<div d3-tree style="height:100%;" ng-if="resultTree" root="resultTree.root" transposed="transposed"></div>
+	</div>
+	<div session-jobs session-id="sessionId"></div>
+</div>
+
+
+

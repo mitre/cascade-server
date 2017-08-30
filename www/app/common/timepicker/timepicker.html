@@ -1,0 +1,27 @@
+<div>
+	<div class="row dropdown form-group">
+		<label for="absolute_start_date"  class="control-label required col-sm-3">Start Time</label>
+		<div class="col-sm-9 dropdown-toggle" role="button" data-toggle="dropdown" data-target="">
+			<div class="input-group">
+				<input id="absolute_start_date" type="text" class="form-control" data-ng-model="inputData.absolute.start">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
+		</div>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<datetimepicker data-ng-model="inputData.absolute.start" data-datetimepicker-config="{ dropdownSelector: '#absolute_start_date' }"/>
+		</ul>
+	</div>
+
+	<div class="row dropdown form-group">
+		<label for="absolute_end_date" class="control-label required col-sm-3" >End Time</label>
+		<div class="col-sm-9 dropdown-toggle" role="button" data-toggle="dropdown" data-target="">
+			<div class="input-group">
+				<input id="absolute_end_date" type="text" class="form-control" data-ng-model="inputData.absolute.end">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
+		</div>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<datetimepicker data-ng-model="inputData.absolute.end" data-datetimepicker-config="{ dropdownSelector: '#absolute_end_date' }"/>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,98 @@
+<div style="position:relative;" class="rounded outline height-full">
+    <div class="float-box rounded legend" ng-show="groups.length">
+        <h3 style="text-align:center;">Legend</h3>
+        <div ng-repeat="group in groups | orderBy: 'toString()'">
+            <div class="rounded square {{group}}"></div> {{group}}
+        </div>
+        <!-- <button style="margin:auto;" type="button" class="btn btn-default">Hide</button> -->
+    </div>
+    <div ng-show="activeNode.family === 'event'" class="rounded float-box node-info">
+        <h3>Event Info <span class="pull-right"><a ng-click="activeNode=null" class="hover-link"><span class="on-hover">Close </span><span class="glyphicon glyphicon-remove"></span></a></span></h3>
+        <div>
+            <h4>ID</h4>
+            <div>
+                <code>{{activeNode.id}}</code>
+                <span class="pull-right" ng-show="sessionId">
+                    <a ng-click="activeNode.investigate=true" class="hover-link">
+                        <span class="on-hover">Re-Investigate </span>
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </span>
+            </div>
+
+            <h4>Time</h4>
+            <div>{{activeNode.item.time}}</div>
+
+            <h4>Host</h4>
+            <div>{{activeNode.item.state.hostname || "Unknown"}}</div>
+
+            <h4>User</h4>
+            <div>{{activeNode.item.state.user || activeNode.item.state.username|| "Unknown"}}</div>
+
+            <h4>Event Type</h4>
+            <event-tags mapped-events="[{object: activeNode.item.object_type, action:activeNode.item.action}]"></event-tags>
+        </div>
+        <div>
+        <h3>Event Fields</h3>
+            <div ng-repeat="(field, value) in activeNode.item.state" ng-if="['hostname', 'user', '_cls'].indexOf(field) === -1">
+                <h5>{{field}}</h5>
+                <div>{{value}}</div>
+            </div>
+        </div>
+        <div ng-show="activeNode.item.metadata._raw">
+            <h3>Raw Event</h3>
+            <pre>{{activeNode.item.metadata._raw}}</pre>
+
+        </div>
+    </div>
+    <div ng-show="activeNode.family === 'analytic_result'" class="rounded float-box node-info">
+        <h3>Analytic Details<span class="pull-right"><a ng-click="activeNode=null" class="hover-link"><span class="on-hover">Close </span><span class="glyphicon glyphicon-remove"></span></a></span></h3>
+
+        <h4>ID</h4>
+        <div><code>{{activeNode.id}}</code></div>
+
+        <h4>Name</h4>
+        <div>{{activeNode.item.analytic.name}}</div>
+
+        <h4>Description</h4>
+        <div>{{activeNode.item.analytic.description}}</div>
+
+        <h4>Coverage</h4>
+        <div ng-hide="activeNode.item.analytic.coverage.length>0">No ATT&amp;CK Coverage</div>
+        <attack-tags  coverage-list="activeNode.item.analytic.coverage"/></attack-tags>
+    </div>
+    <div ng-show="activeNode.family === 'tactic'" class="rounded float-box node-info">
+        <h3>Tactic Details<span class="pull-right"><a ng-click="activeNode=null" class="hover-link"><span class="on-hover">Close </span><span class="glyphicon glyphicon-remove"></span></a></span></h3>
+
+
+        <h4>Name</h4>
+        <div><a target="attack_popup" ng-href="{{activeNode.item.tactic.url}}">{{activeNode.item.tactic.name}}</a></div>
+
+        <h4>Description</h4>
+        <div>{{activeNode.item.tactic.description}}</div>
+
+        <h4>Coverage Tags</h4>
+        <attack-tags  coverage-list="[{tactics:[activeNode.item.tactic]}]"/></attack-tags>
+    </div>
+    <div ng-show="activeNode.family === 'technique'" class="rounded float-box node-info">
+        <h3>Technique Details<span class="pull-right"><a ng-click="activeNode=null" class="hover-link"><span class="on-hover">Close </span><span class="glyphicon glyphicon-remove"></span></a></span></h3>
+
+        <h4>ATT&amp;CK ID</h4>
+        <div><code>{{activeNode.item.technique.technique_id}}</code></div>
+
+        <h4>Name</h4>
+        <div><a target="attack_popup" ng-href="{{activeNode.item.technique.url}}">{{activeNode.item.technique.name}}</a></div>
+
+        <h4>Description</h4>
+        <div>{{activeNode.item.technique.description}}</div>
+
+        <h4>Tactics</h4>
+        <div ng-repeat="tactic in activeNode.item.technique.tactics | orderBy: 'name'">
+            {{tactic.name}}
+        </div>
+
+        <h4>Coverage Tags</h4>
+        <attack-tags  coverage-list="[{technique:activeNode.item.technique, tactics:activeNode.item.technique.tactics}]"/></attack-tags>
+    </div>
+    <div class="svg-container"></div>
+</div>

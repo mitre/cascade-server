@@ -1,0 +1,48 @@
+<div class="container">
+  <div style="padding-bottom: 20;">
+    <h3>Filter by Platform</h3>
+    <span ng-repeat="(platform, count) in analytics | countBy: 'platform'">
+      <input type="checkbox" class="platform" ng-model="platforms[platform]"/> {{platform}} 
+    </span>
+  </div>
+
+  <div style="padding-bottom: 20;">
+    <h3>Display Format</h3>
+    <span ng-repeat="_format in formats">
+      <input type="radio" ng-model="$parent.format" ng-value="_format" name="format"/> {{_format}} 
+    </span>
+  </div>
+
+  <div ng-repeat="(platform, list) in analytics | groupBy: 'platform'" class="panel panel-default" ng-if="platforms[platform]">
+    <div class="panel-heading">
+      <h4 class="panel-title">{{platform}} Analytics</h4>
+    </div>
+
+    <div class="panel-body">
+      <div ng-repeat="analytic in list | orderBy: 'name'">
+        <h3>{{analytic.name}}
+          <a class="pull-right hover-link" target="_blank" href="#/analytics/modify/{{analytic._id}}">
+            <span class="on-hover">Edit </span><span class="glyphicon glyphicon-pencil"></span>
+          </a>
+        </h3>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <attack-tags ng-if="analytic.coverage.length" coverage-list=analytic.coverage></attack-tags>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <event-tags mapped-events=analytic.mapped_events></event-tags>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">{{analytic.description}}</div>
+        </div>
+        <div class="row" ng-if="platform === 'CASCADE'">
+          <div class="col-sm-12"><pre>{{queries[format][analytic._id]}}</pre></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+ /* https://bl.ocks.org/mbostock/4339083 */
+.tree-node {
+  cursor: pointer;
+}
+
+.tree-node circle {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.collapsed circle {
+	fill: steelblue;
+}
+
+.disabled circle {
+  fill: red;
+}
+
+.leaf circle {
+  stroke-width: 2.5px;
+}
+
+
+.tree-node text.key {
+  font: 10px sans-serif;
+  font-weight: bold;
+}
+
+.tree-node text.value {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.field-boxes {
+  font-size: 10pt;
+}

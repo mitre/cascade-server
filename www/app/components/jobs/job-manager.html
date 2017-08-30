@@ -1,0 +1,200 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title">Job Manager</h1>
+        </div>
+
+        <div class="panel-body">
+            <div ng-show="!jobCtrl.loaded" style="min-height:400px;">
+                <h3 style="text-align:center;">Loading Jobs...</h3>
+                <loader style="margin:auto;" size="40"></loader>
+            </div>
+
+            <div ng-show="jobCtrl.loaded">
+                <div>
+                    <div>
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+
+                                {{jobFilter._cls.replace("Job.", "") || 'Type'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(jobType, count) in filteredJobs | countBy: '_cls'">
+                                    <a ng-click="jobFilter._cls = jobType">
+                                        <span class="badge badge-fixed">{{count}}</span> {{jobType.replace("Job.", "")}}
+                                    </a>
+                                <li>
+                            </ul>
+                            <button type="button" class="btn btn-default" ng-click="jobCtrl.clear('_cls');" ng-show="jobFilter._cls">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+
+                                {{jobFilter.status || 'Status'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(status, count) in filteredJobs | countBy: 'status'">
+                                    <a ng-click="jobFilter.status = status">
+                                        <span class="badge badge-fixed">{{count}}</span> {{status}}
+                                    </a>
+                                <li>
+                            </ul>
+                            <button type="button" class="btn btn-default" ng-click="jobCtrl.clear('status');" ng-show="jobFilter.status">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+
+                                {{sessionIndex[jobFilter.session].name || 'Session'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(sessionId, count) in filteredJobs | countBy: 'session'" ng-hide="sessionId === 'undefined'">
+                                    <a ng-click="jobFilter.session = sessionId">
+                                        <span class="badge badge-fixed">{{count}}</span> {{sessionIndex[sessionId].name}}
+                                    </a>
+                                <li>
+                            </ul>
+                            <button type="button" class="btn btn-default" ng-click="jobCtrl.clear('session');" ng-show="jobFilter.session">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" ng-show="jobFilter">
+
+                                {{analyticIndex[jobFilter.analytic].name || 'Analytic'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(analytic, count) in filteredJobs | countBy: 'analytic'"  ng-hide="analytic === 'undefined'">
+                                    <a ng-click="jobFilter.analytic = analytic">
+                                        <span class="badge badge-fixed">{{count}}</span> {{analyticIndex[analytic].name || "null"}}
+                                    </a>
+                                <li>
+                            </ul>
+                            <button type="button" class="btn btn-default" ng-click="jobCtrl.clear('analytic');" ng-show="jobFilter.analytic">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
+                        </div>
+
+                        <div class="btn-group" ng-if="jobFilter.pivot || (jobFilter._cls == 'Job.PivotJob') ">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+
+                                {{jobFilter.pivot || 'Pivot Function'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(pivot, count) in filteredJobs | countBy: 'pivot'">
+                                    <a ng-click="jobFilter.pivot = pivot">
+                                         <span class="badge badge-fixed">{{count}}</span> {{pivot}}
+                                    </a>
+                                <li>
+                            </ul>
+                            <button type="button" class="btn btn-default" ng-click="jobCtrl.clear('status');" ng-show="jobFilter.status">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
+                        </div>
+
+                         <div class="btn-group" ng-if="jobFilter.pivot || (jobFilter._cls == 'Job.AnalyticJob') ">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+
+                                {{jobFilter.mode || 'Run Mode'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(runMode, count) in filteredJobs | countBy: 'mode'">
+                                    <a ng-click="jobFilter.mode = runMode">
+                                         <span class="badge badge-fixed">{{count}}</span> {{runMode}}
+                                    </a>
+                                <li>
+                            </ul>
+                            <button type="button" class="btn btn-default" ng-click="jobCtrl.clear('status');" ng-show="jobFilter.status">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                            </button>
+                        </div>
+
+                        <div class="pull-right" >
+                            <a ng-click="jobCtrl.updateJobs()">Reset Job Filter</a>
+                        </div>
+                    </div>
+                </div><!-- end row -->
+
+                <div>
+                    Filtered to <strong>{{filteredJobs.length}}</strong> of <strong>{{jobs.length}}</strong> jobs.
+                </div>
+                    <div job-progress-bar filter="{}"></div>
+
+                <div style="padding-top:5em;">
+                    <div>
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+
+                                {{'Update Status'}} <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="status in ['created', 'ready', 'started', 'dispatched', 'failure', 'success']">
+                                    <a ng-click="jobCtrl.updateStatus(status)">{{status}}</a>
+                                <li>
+                            </ul>
+                        </div>
+                        <div class="btn-group pull-right">
+                          <button type="button" class="btn btn-default" ng-click="jobCtrl.loadJobs()">Refresh Jobs</button>
+                          <button type="button" class="btn btn-default" ng-click="jobCtrl.removeJobs()">Remove Jobs</button>
+                        </div>
+                    </div>
+                </div><!-- end row -->
+
+                <div>
+                    <div>Displaying the first {{pageSize}} jobs.</div>
+                    <table class="table table-bordered table-striped" style="font-size:1em;">
+                        <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Started</th>
+                            <th>Updated</th>
+                            <th>Job Type</th>
+                            <th>Session</th>
+                            <th>Job Info</th>
+                            <th>Status</th>
+                            <th>Message</th>
+                            <th>Count</th>
+                        </tr>
+                        </thead>
+
+                        <tbody ><!-- no need to evaluate this more than once -->
+                            <tr ng-repeat="job in filteredJobs.slice(jobOffset, jobOffset + pageSize) | limitTo: pageSize ">
+
+                                <td>{{job.created.replace("T", " ").replace("+00:00", "Z")}}</td>
+                                <td>{{job.started.replace("T", " ").replace("+00:00", "Z")}}</td>
+                                <td>{{job.updated.replace("T", " ").replace("+00:00", "Z")}}</td>
+                                <td>{{job._cls.replace("Job.", "")}}</td>
+                                <td>{{sessionIndex[job.session].name}}</td>
+                                <td>{{job.pivot || analyticIndex[job.analytic].name || job.event}}</td>
+                                <td>{{job.status}}</td>
+                                <td>{{job.message}}</td>
+                                <td>{{job.count}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <nav aria-label="Page navigation" ng-hide="true">
+                        <div class="text-center">
+                          <ul class="pagination">
+                            <li ng-hide="pageNum !== 0">
+                              <a aria-label="Previous" ng-click="pageNum = pageNum -1">
+                                <span aria-hidden="true">&laquo; Previous</span>
+                              </a>
+                            </li>
+                            <li ng-repeat="pageOffset in pages track by $index "
+                                ng-class="((pageOffset <= jobOffset) && (jobOffset < pageOffset + pageSize)) ? 'active' : ''" >
+                                <a ng-click="jobOffset = pageOffset">{{$index+1}}</a>
+                            </li>
+                            <li ng-show="pageNum !== numPages.length - 1">
+                              <a aria-label="Next" ng-click="pageNum = pageNum + 1">
+                                <span aria-hidden="true">Next &raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

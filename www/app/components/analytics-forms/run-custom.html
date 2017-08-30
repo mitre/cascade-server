@@ -1,0 +1,93 @@
+<div class="container">
+
+	<div class="panel panel-primary">
+		<div class="panel-heading"><h1 class="panel-title">Run Custom Query</h1></div>
+		<form class="form panel-body" ng-submit="runCustomQuery()">
+
+			<div class="form-group">
+				<label class="label-full">Platform</label>
+				<div class="btn-group">
+					<button class="btn btn-pad btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{platform || "Platforms"}} <span class="caret"></span>
+					</button> 
+					<ul class="dropdown-menu">
+						<li ng-repeat="platform in platforms">
+							<a ng-click="$parent.platform=platform">{{platform}}</a>
+						</li>
+					</ul> 
+				</div>
+			</div>
+			
+			<div class="form-group" ng-show="platform !== 'CASCADE'">
+				<div>
+					<label>External Query Name</label>
+					<input type="text" class="form-control" ng-model="query_name">
+					<!-- end external query logic -->
+					<label>
+						<event-tags mapped-events="mapped_events"></event-tags>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group" ng-show="platform === 'CASCADE'">
+				<div>
+					<label>Query Code</label>
+					<label class="pull-right" ng-if="queryText">
+						<span ng-if="error" style="color:red;"><span class="glyphicon glyphicon-remove"/> ERROR: {{errorText}}</span>
+						<span ng-if="!error" style="color:green;" class="glyphicon glyphicon-ok"></span>
+					</label>
+
+					<textarea class="form-control" ng-model="queryText" placeholder="search process create where exe == &quot;cmd.exe&quot;"></textarea>
+				</div>
+
+				<!-- end external query logic -->
+				<label>
+					<event-tags mapped-events="mapped_events"></event-tags>
+				</label>
+			</div>
+
+			<div ng-show="false">
+				<div class="form-group">
+					<label class="label-full" style="color:gray;">ATT&amp;CK COVERAGE</label>
+					<label ng-if="coverage.length"><attack-tags coverage-list=coverage/></attack-tags></label>
+				</div>
+
+				<div class="form-group">
+					<label class="label-full">Technique</label>
+					<div class="btn-group">
+						<button class="btn btn-pad btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{currentCoverage.technique.name || "All Techniques"}} <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" style="height:10em;overflow-y:scroll;">
+							<li ng-repeat="technique in attack.techniques | orderBy: 'name'">
+								<a ng-click="$parent.currentCoverage.technique=technique">{{technique.name}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="form-group" ng-if="currentCoverage.technique">
+					<label class="label-full">Tactics</label>
+					<label class="checkbox-inline" ng-repeat="tactic in currentCoverage.technique.tactics">
+						<input type="checkbox" name="mode" ng-model="selectedTactics[tactic._id]">{{tactic.name}}
+					</label>
+				</div>
+
+				<div class="form-group" ng-if="currentCoverage.technique">
+					<label class="label-full"> Coverage Level </label>
+					<label class="radio-inline" ng-repeat="level in levels">
+						<input type="radio" name="level" ng-model="$parent.$parent.currentCoverage.coverage" ng-value="level">{{level}}
+					</label>
+				</div>
+
+				<div class="form-group" ng-if="currentCoverage.technique">
+					<button ng-click="addCoverage()" class="btn btn-pad btn-success">
+						 <span class="glyphicon glyphicon-plus"></span> Detect Technique
+					</button>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-default hover-green" type="submit" ng-click="submit()">Run Query</button>
+			</div>
+		</form>
+	</div>
+</div>

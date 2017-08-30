@@ -1,0 +1,19 @@
+ .legend {
+     position: absolute;
+     background-color: white;
+     margin: 15px;
+     padding: 15px;
+     float: left;
+     padding-bottom: 15px;
+     opacity: 0.9;
+ }
+
+.legend h3 {
+    margin-top: 0px;
+}
+
+ .square {
+     width:10px;
+     height:10px;
+     display: inline-block;
+ }

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1 class="panel-title">Connect to External Database</h1>
+    </div>
+
+
+    <div class="panel-body">
+      <form ng-submit="dbCtrl.submit()">
+        <div class="form-group">
+          <label for="name" control-label">Name</label>
+            <div>
+              <input type="text" class="form-control" id="name" ng-model="dbInfo.name" placeholder="Name of Database. (e.g. Corporate Splunk Server)">     
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="platform" class="control-label">Platform</label>
+            <div>
+              <select class="form-control" id="platform" ng-model="dbInfo._cls">     
+                <option disabled selected value="">Select a Platform</option>
+                <option ng-repeat="schema in dbSchemas" value="{{schema._cls}}">{{schema.name}}</option>
+              </select>
+            </div>
+        </div>
+
+        <div ng-if="dbInfo._cls">
+          <hr/>
+          <div class="form-group">
+              <div><label style="color:gray;">DATABASE SETTINGS</label></div>
+          </div>
+
+          <div ng-repeat="(field, settings) in schemaFields[dbInfo._cls]" ng-if="field !== 'name'">
+            <div class="checkbox" ng-if="settings.type === 'BooleanField'">
+              <label>
+                <input type="checkbox" ng-model="dbFields[field]"> <strong>{{field}}</strong>
+              </label>
+            </div>
+
+            <div class="form-group" ng-if="settings.type !== 'BooleanField'">
+              <label for="name" class="control-label">{{field}}</label>
+              <div>
+                <input ng-if="settings.type === 'IntField'" type="number" class="form-control" ng-model="dbFields[field]">
+                <input ng-if="settings.type === 'ListField'" type="text" ng-list="," class="form-control" ng-model="dbFields[field]" placeholder="Value1,Value2,...">
+                <input ng-if="settings.type === 'StringField'" type="text" class="form-control" ng-model="dbFields[field]">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+          <hr/>
+        <div class="form-group">
+          <div>
+            <button type="submit" class="btn btn-primary">Connect</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

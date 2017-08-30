@@ -1,0 +1,26 @@
+<div class="btn-group">
+    <button class="btn dropdown-toggle" ng-class="activeConfig ? 'btn-default': 'btn-primary'" type="button" data-toggle="dropdown">
+        {{activeConfig.name || 'Load Configuration'}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu scrollable-dropdown">
+        <li ng-show="configurations.length == 0"><a class="disabled">No configurations found.</a></li>
+        <li ng-repeat="config in configurations | orderBy: 'name' " ng-show="configurations">
+            <a ng-click="buttonCtrl.selectConfiguration(config)">{{config.name}} </a>
+        <li>
+    </ul>
+</div>
+
+<div class="btn-group" ng-hide="disableModes">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+        Set Run Modes <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li ng-repeat="(mode, text) in buttonCtrl.modes">
+            <a ng-click="buttonCtrl.setModes(mode)">{{text}} </a>
+        </li>
+    </ul>
+</div><!-- /btn-group -->
+
+<button type="button" ng-click="buttonCtrl.selectAll()" class="btn btn-default">Select All</button>
+<button type="button" ng-click="buttonCtrl.undoChanges()"    class="btn btn-default">Undo Changes</button>
+<button type="button" ng-click="buttonCtrl.clearAll()"     class="btn btn-default">Clear All</button>

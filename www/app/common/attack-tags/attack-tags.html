@@ -1,0 +1,7 @@
+<a target="attack_popup"ng-repeat="coverage in coverageList" ng-href="{{coverage.technique.url}}">
+	<span style="display:inline-block;" class="label label-{{levels[coverage.level]}}">
+		ATT&amp;CK <span ng-if="coverage.technique">{{coverage.technique.technique_id}}: {{coverage.technique.name}}</span>
+		<span ng-if="!coverage.technique">-</span>
+		<span ng-if="coverage.tactics.length"><span ng-if="coverage.technique">(</span><span ng-repeat="tactic in coverage.tactics">{{tactic.name}}<span ng-if="!$last">, </span></span><span ng-if="coverage.technique">)</span></span>
+    </span>
+</a>

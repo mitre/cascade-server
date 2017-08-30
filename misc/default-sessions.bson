@@ -1,0 +1,51 @@
+[
+  {
+    "collection": "session", 
+    "content": [
+      {
+        "_id": {
+          "$oid": "56fc567e6cd3230b5e38032c"
+        }, 
+        "name": "Last 7 Days", 
+        "range": {
+          "_cls": "RelativeRange", 
+          "end": 0, 
+          "start": -604800
+        }, 
+        "state": {
+          "analytics": []
+        }
+      }, 
+      {
+        "_id": {
+          "$oid": "56fc1c36cefaff36ecf8380a"
+        }, 
+        "name": "Last 24 Hours", 
+        "range": {
+          "_cls": "RelativeRange", 
+          "end": 0, 
+          "start": -86400
+        }, 
+        "state": {
+          "analytics": [
+          ]
+        }
+      }, 
+      {
+        "_id": {
+          "$oid": "56fb1974cefaff1d143bd6d0"
+        }, 
+        "name": "Last Hour", 
+        "range": {
+          "_cls": "RelativeRange", 
+          "end": 0, 
+          "start": -3600
+        }, 
+        "state": {
+          "analytics": [
+          ]
+        }
+      }
+    ]
+  }
+] 

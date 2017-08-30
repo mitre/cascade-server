@@ -1,0 +1,51 @@
+<div class="height-full">
+	<div>
+		<div class="form-group">
+			<!-- <input type="hidden" name="analytic" value="{{analytic.name}}" method="post"> -->
+			<!-- <input type="hidden" name="analytic" value="{{analytic.name}}" method="post"> -->
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					{{analytic.name|| analyticId }} <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu scrollable-dropdown">
+					<li ng-repeat="baseline in baselines | orderBy: 'analytic.name'">
+						<a href="#/analytics/tuning/{{baseline.analytic._id}}"><span class="badge badge-fixed">{{baseline.root.size}}</span> {{baseline.analytic.name}}</a>
+					</li>
+				</ul>
+			</div>
+
+			<span ng-show="baseline.time_range" style="margin-left:auto;margin-right:auto;">
+				<span style="margin-left:15px;margin-right:15px;">
+					<strong>Start</strong> {{baseline.time_range.start.replace("T", " ").replace("+00:00", " UTC")}}
+				</span>
+				<span style="margin-left:15px;margin-right:15px;">
+					<strong>End</strong> {{baseline.time_range.end.replace("T", " ").replace("+00:00", " UTC")}}
+				</span>
+			</span>
+
+			<div class="pull-right">
+				<button class="btn btn-default" type="button" ng-click="transposed=!transposed"><span ng-class="'glyphicon glyphicon-option-' + (transposed ? 'horizontal' : 'vertical')"></span> Transpose</button>
+				<button class="btn btn-default" type="button" ng-click="reset()"><span class="glyphicon glyphicon-repeat"></span> Restore Original</button>
+				<button class="btn btn-default" type="button" ng-click="optimize()"><span class="glyphicon glyphicon-flash"></span> Auto-Adjust</button>
+				<button class="btn btn-default" type="button" ng-click="reTrain()"><span class="glyphicon glyphicon-refresh"></span> Update Fields</button>
+				<button class="btn btn-default" type="button" ng-click="saveChanges()"><span class="glyphicon glyphicon-floppy-save"></span> Save Changes</button>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>Discovered Fields</label>
+			<div class="input-group">
+				<div class="field-boxes">
+					<label class="checkbox-inline" ng-repeat="k in baseline.keys | orderBy:'name'"><input type="checkbox" value="{{k.name}}" ng-model="k.status" name="key"> {{k.name}} </label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="height:calc(100% - 140px);">
+		<div d3-tree class="height-full" root="baseline.root" transposed="transposed"></div>
+	</div>
+</div>
+
+
+

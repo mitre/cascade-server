@@ -1,0 +1,25 @@
+<div class="container">
+	<div id="login_form" class="panel panel-primary" style="max-width:512px;margin:auto;">
+		<div class="panel-heading">Account Login</div>
+		<div class="panel-body">
+			<form ng-submit="submit()">
+				<div class="form-group">
+					<label for="username">User Name</label>
+					<input type="text" class="form-control" id="username" ng-model="username" placeholder="User Name" value="{{username}}">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="password" ng-model="password" placeholder="Password">
+				</div>
+				<div class="form-group">
+            		<span ng-if="error" style="color:red;"><span class="glyphicon glyphicon-remove"></span> ERROR: {{error}}</span>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary form-control">Login</button>
+				</div>
+			</form>
+			<a ng-href="/#/create-account">Create an Account</a>
+			<a class="pull-right" style="color:#6a7;" ng-href="/#/forgot-password">Forgot Your Password?</a>
+		</div>
+	</div>
+</div>

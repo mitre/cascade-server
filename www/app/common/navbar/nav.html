@@ -1,0 +1,233 @@
+<div>
+  <!--  Taken from https://getbootstrap.com/javascript/, 4-15-2016 (MIT License https://github.com/twbs/bootstrap/blob/master/LICENSE) -->
+  <div id="remove-session" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Remove Session</h4>
+        </div>
+        <div class="modal-body">
+          <p><span class="glyphicon glyphicon-fire"></span> Are you sure you want to remove the session <span style="font-weight:bold;">{{sessions.current.name}}</span>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger submit" ng-click="removeSession()">Remove Session</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <!--  Taken from https://getbootstrap.com/javascript/, 4-15-2016 (MIT License https://github.com/twbs/bootstrap/blob/master/LICENSE) -->
+  <div id="reset-session" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Reset Session</h4>
+        </div>
+        <div class="modal-body">
+          <p><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to reset the session <span style="font-weight:bold;">{{sessions.current.name}}</span>?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger submit" ng-click="resetSession()">Reset Session</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div id="upload-session" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div ng-if="!message" class="modal-content" id="up">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload Session</h4>
+        </div>
+        <div class="modal-body">
+          <span>
+            <label class="btn btn-default btn-file">
+              Choose File
+              <input file-upload type="file" style="display: none;" file="sessionFile"/>
+            </label>
+            {{sessionFile.name}}
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="uploadSession(sessionFile)">Upload Session</button>
+        </div>
+      </div><!-- /.modal-content -->
+
+      <div ng-if="message" class="modal-content" id="up">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload Session</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{message}}</p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="resetUploadModal()">Upload Another Session</button>
+        </div>
+      </div>
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <!--  Taken from https://getbootstrap.com/javascript/, 4-15-2016 (MIT License https://github.com/twbs/bootstrap/blob/master/LICENSE) -->
+  <div id="clone-session" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Clone Session</h4>
+        </div>
+
+        <div class="modal-body">
+          <p><span class="glyphicon glyphicon-warning-sign"></span>
+            Clone the session <span style="font-weight:bold;">{{sessions.current.name}}</span> as
+            <input id="cloned-session" class="form-control" type="text" ng-model="newSession.name">
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger submit" ng-click="cloneSession()">Clone Session</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+
+
+<!-- Navigation -->
+<html>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span> <span ng-hide="sessions.current.name"> CASCADE</span></a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+          <a href="" ng-show="user.full_name" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-dashboard"></span> Sessions <span class="caret"></span></a>
+          <ul class="dropdown-menu scrollable-dropdown" role="menu">
+
+            <li>
+              <a href="#/create-session">
+                <span class="glyphicon glyphicon-plus"></span> Create New Session
+              </a>
+            </li>
+
+            <li>
+              <a href="" data-toggle="modal" data-target="#upload-session">
+                <span class="glyphicon glyphicon-upload"></span> Upload Session
+              </a>
+            </li>
+
+            <li class="divider" ng-if="sessions.list.length"></li>
+
+            <li class="session" ng-repeat="session in sessions.list | orderBy: 'name'">
+              <a ng-href="#/sessions/{{session._id}}/dashboard">{{session.name}}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Analytics Dropdown -->
+        <li class="dropdown">
+          <a href=""class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span> Analytics <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#/analytics"><span class="glyphicon glyphicon-list"></span> List</a></li>
+            <li ng-show="user.full_name"><a href="#/analytics/configure"><span class="glyphicon glyphicon-list-alt"></span> Configure</a></li>
+            <li ng-show="user.full_name"><a href="#/analytics/tuning"><span class="glyphicon glyphicon-refresh"></span> Tune Analytics</a></li>
+            <li><a href="#/analytics/coverage"><span class="glyphicon glyphicon-th"></span> ATT&amp;CK Coverage</a></li>
+
+            <li ng-show="user.full_name" class="divider"></li>
+
+            <li ng-show="user.full_name"><a href="#/analytics/create"><span class="glyphicon glyphicon-list"></span> Create New</a></li>
+          </ul>
+        </li>
+
+
+        <!-- ATT&CK Dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th-large"></span> ATT&amp;CK  <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#/data-model"><span class="glyphicon glyphicon-grain"></span> Data Model</a></li>
+            <li><a href="#/attack/matrix"><span class="glyphicon glyphicon-th"></span> Technique Matrix</a></li>
+            <li><a href="#/attack/tactic-sets"><span class="glyphicon glyphicon-filter"></span> Manipulate Tactic Sets</a></li>
+          </ul>
+        </li>
+
+        <!-- Session Dropdown -->
+        <li ng-show="sessions.currentId" class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-ice-lolly"></span> Session <b>{{sessions.current.name}}</b> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#/sessions/{{sessions.currentId}}/dashboard"><span class="glyphicon glyphicon-dashboard"></span> Session Dashboard</a></li>
+            <li class="divider"></li>
+
+            <li><a href="#/sessions/{{sessions.currentId}}/graphs/alerts"><span class="glyphicon glyphicon-warning-sign"></span> Alert Graph</a></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/graphs/attack"><span class="glyphicon glyphicon-road"></span> ATT&amp;CK Graph</a></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/graphs/events"><span class="glyphicon glyphicon-ice-lolly-tasted"></span> Event Graph</a></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/graphs/hosts"><span class="glyphicon glyphicon-hdd"></span> Hosts Graph</a></li>
+
+            <li class="divider"></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/graphs/analytic-tree"><span class="glyphicon glyphicon-tree-deciduous"></span> Analytic Trees</a></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/host-timeline"><span class="glyphicon glyphicon-th-list"></span> Host Timeline</a></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/timeline"><span class="glyphicon glyphicon-th-list"></span> Timeline</a></li>
+
+            <li class="divider"></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/run-analytics"><span class="glyphicon glyphicon-play"></span> Run Analytics</a></li>
+            <li><a href="#/sessions/{{sessions.currentId}}/custom-query"><span class="glyphicon glyphicon-filter"></span> Run Custom Query</a></li>
+
+            <li class="divider"></li>
+            <!-- manipulate session / modals -->
+            <li ng-click="refreshSession()"><a><span class="glyphicon glyphicon-refresh"></span> Refresh Session</a></li>
+            <li ng-click="buildClone()"><a href="" data-toggle="modal" data-target="#clone-session"><span class="glyphicon glyphicon-duplicate"></span> Clone Session</a></li>
+            <li><a href="" data-toggle="modal" data-target="#remove-session"><span class="glyphicon glyphicon-remove"></span> Remove Session</a></li>
+            <li><a href="" data-toggle="modal" data-target="#reset-session"><span class="glyphicon glyphicon-repeat"></span> Reset Session</a></li>
+            <li><a href="/api/sessions/{{sessions.currentId}}/export" target="_self" download="{{sessions.current.name}}.bson"><span class="glyphicon glyphicon-repeat"></span> Export Session</a></li>
+          </ul>
+        </li> <!-- Session Dropdown /-->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" ng-hide="user.username">
+          <a data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-blackboard"></span> Documentation <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <!-- TODO -->
+            <li><a href="#/docs/user-guide"><span class="glyphicon glyphicon-cloud"></span> User Guide</a></li>
+            <li><a href="#/docs/technical-guide"><span class="glyphicon glyphicon-education"></span> Development Guide</a></li>
+          </ul>
+        </li>
+        <li ng-show="user.username" class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"></span> {{user.full_name}} <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <!-- TODO -->
+            <li><a href="#/account"><span class="glyphicon glyphicon-cog"></span> Account Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="#/admin/databases"><span class="glyphicon glyphicon-cloud"></span> Manage External Databases</a></li>
+            <li><a href="#/admin/jobs"><span class="glyphicon glyphicon-briefcase"></span> Manage Jobs</a></li>
+            <li class="divider"></li>
+            <li><a href="#/docs/user-guide"><span class="glyphicon glyphicon-blackboard"></span> User Guide</a></li>
+            <li><a href="#/docs/technical-guide"><span class="glyphicon glyphicon-education"></span> Development Guide</a></li>
+            <li class="divider"></li>
+            <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+</html>

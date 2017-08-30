@@ -1,0 +1,182 @@
+<div class="container">
+
+	<div class="panel panel-primary">
+		<div class="panel-heading"><h1 class="panel-title"><span ng-if="analytic._id">Modify Existing</span><span ng-if="! analytic._id">Create New</span> Analytic</h1></div>
+		<form class="form panel-body" ng-submit="createAnalytic()">
+
+			<div class="form-group" ng-if="analytic._id">
+				<label>ID</label>
+				<input type="text" class="form-control" disabled ng-model="analytic._id">
+			</div>
+
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" class="form-control" placeholder="Tool - Microsoft - cmd.exe (Command Shell)" ng-model="analytic.name">
+			</div>
+
+
+			<div class="form-group">
+				<label class="label-full">Platform</label>
+				<div class="btn-group">
+					<button class="btn btn-pad btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{analytic.platform || "Platforms"}} <span class="caret"></span>
+					</button> 
+					<ul class="dropdown-menu">
+						<li ng-repeat="platform in platforms">
+							<a ng-click="$parent.analytic.platform=platform">{{platform}}</a>
+						</li>
+					</ul> 
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="label-full">Status</label>
+				<label class="radio-inline">
+					<input type="radio" name="status" ng-model="analytic.enabled" ng-value="true">Enabled
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="status" ng-model="analytic.enabled" ng-value="false">Disabled
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label class="label-full">Run Mode</label>
+				<label class="radio-inline" ng-repeat="(mode, text) in modes">
+					<input type="radio" name="mode" ng-model="$parent.analytic.mode" ng-value="mode">{{text}}
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label>Description</label>
+				<textarea class="form-control" ng-model="analytic.description" placeholder="Detect instances of Microsoft's cmd.exe running, which an APT may use as a remote command line interface."></textarea>
+			</div>
+
+			<div class="form-group" ng-hide="analytic.platform === 'CASCADE'">
+				<div>
+					<label>External Query Name</label>
+					<input type="text" class="form-control" ng-model="analytic.query_name">
+				</div>
+			</div>
+
+			<div class="form-group" ng-show="analytic.platform === 'CASCADE'">
+				<div>
+					<label>Query Code</label>
+					<label class="pull-right" ng-if="queryText">
+						<span ng-if="error" style="color:red;"><span class="glyphicon glyphicon-remove"/> ERROR: {{errorText}}</span>
+						<span ng-if="!error" style="color:green;" class="glyphicon glyphicon-ok"></span>
+					</label>
+
+					<textarea class="form-control" ng-model="queryText" placeholder="search process create where exe == &quot;cmd.exe&quot;"></textarea>
+				</div>
+
+				<!-- end external query logic -->
+				<label ng-show="analytic.mapped_events.length > 0">
+					<event-tags mapped-events="analytic.mapped_events"></event-tags>
+				</label>
+			</div>
+
+
+			<div class="form-group" ng-hide="analytic.platform === 'CASCADE'">
+
+
+				<div>
+					<label class="label-full" style="color:gray;">MAPPED EVENTS</label>
+
+					<!-- end external query logic -->
+					<label ng-show="mappedEventList.length">
+						<event-tags mapped-events="mappedEventList"></event-tags>
+					</label>
+					<div class="row" ng-repeat="mappedEvent in mappedEventList">
+						<div class="col-sm-3">
+							<div class="btn-group">
+								<button class="btn btn-pad btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+									{{mappedEvent.object || "Data Model Object"}} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li ng-repeat="dataModelObject in dataModel">
+										<a ng-click="$parent.mappedEvent.object=dataModelObject.name">{{dataModelObject.name}}</a>
+									</li>
+								</ul>
+							</div>
+							<div class="btn-group">
+								<button class="btn btn-pad btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+									{{mappedEvent.action || "Action"}} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li ng-repeat="action in $parent.dataModelIndex[mappedEvent.object].actions">
+										<a ng-click="$parent.mappedEvent.action=action">{{action}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-9" ng-show="mappedEvent.object">
+							<div class="row" ng-repeat="mapItem in mappedEvent.fieldMap">
+								<div class="col-sm-6">
+									<select class="form-control" ng-model="mapItem.field">
+
+									  <option disabled value="">Select Field</option>
+									  <option ng-repeat="field in $parent.dataModelIndex[mappedEvent.object].fields"
+											  ng-model="mapItem.field">{{field}}</option>
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" ng-model="mapItem.externalField" placeholder="Field in Output: i.e. CommandLine">
+								</div>
+							</div>
+							<a ng-click="mappedEvent.fieldMap.push({})">Add Field</a>
+						</div>
+					</div>
+
+					<a ng-click="mappedEventList.push({fieldMap: [{}]})">Extract Additional Event</a>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="label-full" style="color:gray;">ATT&amp;CK COVERAGE</label>
+				<label ng-show="analytic.coverage.length"><attack-tags coverage-list="analytic.coverage"/></attack-tags></label>
+			</div>
+
+			<div class="form-group">
+				<label class="label-full">Technique</label>
+				<div class="btn-group">
+					<button class="btn btn-pad btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{currentCoverage.technique.name || "All Techniques"}} <span class="caret"></span>
+					</button> 
+					<ul class="dropdown-menu" style="height:10em;overflow-y:scroll;">
+						<li ng-repeat="technique in attack.techniques | orderBy: 'name'">
+							<a ng-click="$parent.currentCoverage.technique=technique">{{technique.name}}</a>
+						</li>
+					</ul> 
+				</div>
+			</div>
+
+			<div class="form-group" ng-if="currentCoverage.technique">
+				<label class="label-full">Tactics</label>
+				<label class="checkbox-inline" ng-repeat="tactic in currentCoverage.technique.tactics">
+					<input type="checkbox" name="mode" ng-model="selectedTactics[tactic._id]">{{tactic.name}}
+				</label>
+			</div>
+
+			<div class="form-group" ng-if="currentCoverage.technique">
+				<label class="label-full"> Coverage Level </label>
+				<label class="radio-inline" ng-repeat="level in levels">
+					<input type="radio" name="level" ng-model="$parent.$parent.currentCoverage.level" ng-value="level">{{level}}
+				</label>
+			</div>
+
+			<div class="form-group" ng-if="currentCoverage.technique">
+				<button ng-click="addCoverage()" class="btn btn-pad btn-success">
+					 <span class="glyphicon glyphicon-plus"></span> Detect Technique
+				</button>
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-default hover-green" type="submit" ng-click="submit()">
+                    <span ng-class="'glyphicon glyphicon-floppy-' + icon"></span>
+					<span ng-if="analytic._id">Update</span>
+					<span ng-if="!analytic._id">Create</span>
+					Analytic
+				</button>
+				<button class="btn btn-default hover-red" type="submit" ng-if="analytic._id" ng-click="remove()"><span class="glyphicon glyphicon-remove"/> Remove Analytic</button>
+			</div>
+		</form>
+	</div>
+</div>

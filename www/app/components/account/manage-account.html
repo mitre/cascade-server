@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title">Modify User</h1>
+        </div>
+
+        <form class="pad-15">
+            <div>
+                <div class="form-group">
+                    <label style="color:gray;">USER SETTINGS</label>
+                </div>
+                <div class="form-group">
+                    <label for="username">Full Name</label>
+                    <input type="text" class="form-control" id="username" placeholder="John Smith" ng-model="user.username">
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="John Smith" ng-model="user.full_name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.email">
+                </div>
+                <!--
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
+                </div>
+                -->
+            </div>
+
+            <hr/>
+
+            <div>
+                <div class="form-group">
+                    <label for="fullName" style="color:gray;">DATABASES</label>
+                </div>
+
+                <div class="form-group" ng-repeat="layer in dbCtrl.databases">
+                    <label for="dbName">External Database Name</label>
+                    <div>
+                        <input type="text" class="form-control" style="float:left; width:85%" disabled id="dbName" value="{{layer.name}}">
+                        <button ng-click="removeDb(layer)" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+            </div>
+            <a href="#/account/add-database">Connect to Database</a>
+
+            <hr/>
+
+            <div>
+                <div class="form-group">
+                    <label style="color:gray;">USER INFO</label>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="label-full">API Token</label>
+                    <button ng-if="!apiToken" ng-click="getToken()" class="btn btn-default">Request Persistent Token</button>
+                    <pre ng-if="apiToken">{{apiToken}}</pre>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

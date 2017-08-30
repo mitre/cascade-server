@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="panel panel-primary" style="margin:auto;padding:0px;float:initial;">
+		<div class="panel-heading" ><h1 class="panel-title">Run Analytics for {{sessions.current.name || sessionId}}</h1></div>
+		<form class="panel-body" style="margin:20px;" ng-submit="runAnalytics()">
+			<div class="form-group">
+				<analytic-configuration-buttons platforms="platforms" configuration="configuration"></analytic-configuration-buttons>
+				<div class="pull-right">
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-play"></span> Run Analytics</button>
+				</div>
+			</div>
+			<!--
+			<div class="radio" ng-init="runMode='initial'">
+				<label>
+					<input type="radio" ng-model="runMode" value="initial" class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse" name="runMode"> First Pass
+				</label>
+				<label>
+					<input type="radio" ng-model="runMode" value="second-pass" class="ng-valid ng-not-empty ng-dirty ng-touched" name="runMode"> Second Pass
+				</label>
+			</div>
+			-->
+
+			<analytic-form-content platforms="platforms" configuration="configuration"></analytic-form-content>
+			<!--  analytics.content() }} -->
+
+			<!-- once the analytics are loaded, add these buttons to the bottom for convenience -->
+			<div class="form-group" ng-if="analytics.length > 10">
+				<analytic-configuration-buttons platforms="platforms" configuration="configuration"></analytic-configuration-buttons>
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-play"></span> Run</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+#hosts-chart {
+  font-size: 12px;
+}
+
+#hosts-control {
+  font-size: 14px;
+}
+
+.x.axis path,
+.x.axis line{
+  fill: none;
+  stroke: black;
+}
+
+rect.pane {
+  fill: none;
+  pointer-events: all;
+}
+
+.link {
+  stroke: black;
+  fill:none;
+  stroke-width: 1;
+  marker-end: url("#arrowhead");
+}
+
+line.host {
+  stroke: lightgray;
+  stroke-width: 1;
+}

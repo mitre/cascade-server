@@ -1,0 +1,35 @@
+---
+config:
+    allow_account_creation: true
+
+password:
+    enforce: false
+    regex: ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-\.]).{8,}$
+    rules:
+        - At least one upper case letter.
+        - At least one lower case letter.
+        - At least one number.
+        - At least one special character (!@#$%^&*-. ).
+        - Minimum of 8 characters.
+
+database:
+    crypto:
+        fernet: <autogenerate>
+        key: <autogenerate>
+
+links:
+    attack: https://attack.mitre.org
+    car: https://car.mitre.org
+    smtp: ""
+    proxies:
+        http: ""
+        https: ""
+
+server:
+    hostname: <autogenerate>
+    https:
+        certfile: misc/cascade.mitre.org.pem
+        enabled: false
+        keyfile: misc/cascade.mitre.org.key
+    interface: 127.0.0.1
+    port: 5000

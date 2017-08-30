@@ -1,0 +1,25 @@
+
+.attackTable th {
+    background-color: #005B94;
+    color: white;
+}
+.attackTable td.selected a {
+    color: black;
+    font-weight: bold;
+}
+.attackTable td.no-coverage {
+    background-color: red;
+}
+.attackTable td.low-coverage {
+    background-color: orange;
+}
+.attackTable td.moderate-coverage {
+    background-color: yellow;
+}
+.attackTable td.high-coverage {
+    background-color: green;
+}
+.attackTable td.faded {
+    opacity: 0.50;
+    color: gray;
+}

@@ -1,0 +1,11 @@
+<div class="progress"">
+  <div class="progress-bar progress-bar-success progress-bar" role="progressbar" ng-attr-aria-valuenow="{{percent.success}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: percent.success + '%'}">
+    <span>{{success}} Complete</span>
+  </div>
+  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" ng-attr-aria-valuenow="{{percent.pending}}" aria-valuemin="0" aria-valuemax="100"  ng-style="{width: percent.pending + '%'}">
+    <span>{{pending}} Pending</span>
+  </div>
+  <div class="progress-bar progress-bar-danger" role="progressbar" ng-attr-aria-valuenow="{{percent.fail}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: percent.fail + '%'}">
+    <span>{{fail}} Failed</span>
+  </div>
+</div>

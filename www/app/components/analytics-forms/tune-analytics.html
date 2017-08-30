@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ><h1 class="panel-title">Tune Analytics</h1></div>
+        <form class="panel-body" style="margin:20px;" ng-submit="submitTuning()">
+
+            <div class="form-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-wrench"></span> View Existing Baselines </span></span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="b in baselines | orderBy: 'analytic.name'">
+                            <a href="/#/analytics/tuning/{{b.analytic._id}}"><span class="badge badge-fixed">{{b.root.size}}</span> {{b.analytic.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-time"></span> Use Time from Session <span<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="session in sessions.list | orderBy: 'name'">
+                            <a ng-click="setTimepicker(session)">{{session.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <timepicker input-data="timeData" start="start"></timepicker>
+            </div>
+
+            <hr>
+            <div class="form-group">
+                <div job-progress-bar filter="{'type': 'Job.TuningJob'}"></div>
+            </div>
+
+
+            <div class="form-group">
+                <analytic-configuration-buttons platforms="platforms" configuration="configuration" disable-modes="true"></analytic-configuration-buttons>
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-wrench"></span> Begin Tuning</button>
+                </div>
+            </div>
+
+            <analytic-form-content platforms="platforms"  configuration="configuration" disable-modes="true"></analytic-form-content>
+
+            <!-- once the analytics are loaded, add these buttons to the bottom for convenience -->
+            <button type="submit" class="btn btn-default" ng-if="analytics > 10">Tune Analytics</button>
+        </form>
+    </div>
+</div>

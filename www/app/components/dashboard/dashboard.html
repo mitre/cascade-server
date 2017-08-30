@@ -1,0 +1,201 @@
+<div class="height-full">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a target="_self" href="#dashboard-info" aria-controls="home" role="tab" data-toggle="tab">Session Info</a></li>
+        <li role="presentation"><a target="_self" href="#dashboard-activity-sets" aria-controls="home" role="tab" data-toggle="tab">Activity Sets</a></li>
+        <li role="presentation" class="disabled" ng-hide="summary.count"><a role="tab">Event Graph</a></li>
+        <li role="presentation" class="disabled" ng-hide="summary.count"><a role="tab">ATT&amp;CK Matrix</a></li>
+        <li role="presentation" class="disabled" ng-hide="summary.count"><a role="tab">Host Timeline</a></li>
+        <li role="presentation" class="disabled" ng-hide="summary.count"><a role="tab">Event Timeline</a></li>
+        <li role="presentation" class="disabled" ng-hide="summary.count"><a role="tab">Hosts and Users</a></li>
+
+        <li role="presentation" ng-show="summary.count"><a target="_self" href="#dashboard-event-graph" role="tab" data-toggle="tab">Event Graph</a></li>
+        <li role="presentation" ng-show="summary.count"><a target="_self" href="#dashboard-attack" role="tab" data-toggle="tab">ATT&amp;CK Matrix</a></li>
+        <li role="presentation" ng-show="summary.count"><a target="_self" href="#dashboard-host-timeline" role="tab" data-toggle="tab">Host Timeline</a></li>
+        <li role="presentation" ng-show="summary.count"><a target="_self" href="#dashboard-event-timeline" role="tab" data-toggle="tab">Event Timeline</a></li>
+        <li role="presentation" ng-show="summary.count"><a target="_self" href="#dashboard-hosts" role="tab" data-toggle="tab">Hosts and Users</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content" style="height:calc(100% - 65px);">
+        <div role="tabpanel" class="tab-pane active container" id="dashboard-info">
+            <h2>{{sessions.current.name || 'Session ' + sessionId }} Summary</h2>
+            <div class="pad-bottom">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="width:100px;">Start Time</th>
+                            <td ng-if="sessions.current.range._cls=='AbsoluteRange'">{{sessions.current.range.start.replace("000+00:00", "Z UTC")}}</td>
+                            <td ng-if="sessions.current.range._cls=='RelativeRange'">
+                                <span>{{((sessions.current.range.start || 0) / (-60*60*24)).toFixed(0) }}</span> Days
+                                <span>{{(((sessions.current.range.start || 0) / (-60*60)) % 24).toFixed(0) }}</span> Hours
+                                <span>{{(((sessions.current.range.start || 0) / (-60)) % 60).toFixed(0) }}</span> Minutes
+                                <span>{{(-1*(sessions.current.range.start || 0)  % 24).toFixed(0) }}</span> Seconds
+                                Ago
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>End Time</th>
+                            <td ng-if="sessions.current.range._cls=='AbsoluteRange'">{{sessions.current.range.end.replace("000+00:00", "Z UTC")}}</td>
+                            <td ng-if="sessions.current.range._cls=='RelativeRange'">
+                                <span ng-show="sessions.current.range.end==0">Now</span>
+                                <span ng-show="sessions.current.range.end!=0">
+                                    <span>{{((sessions.current.range.end || 0) / (-60*60*24)).toFixed(0) }}</span> Days
+                                    <span>{{(((sessions.current.range.end || 0) / (-60*60)) % 24).toFixed(0) }}</span> Hours
+                                    <span>{{(((sessions.current.range.end || 0) / (-60)) % 60).toFixed(0) }}</span> Minutes
+                                    <span>{{(-1*(sessions.current.range.end || 0)  % 24).toFixed(0) }}</span> Seconds
+                                    Ago
+                                </span>
+
+                            </span>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+	        <div job-progress-bar filter="{'session': sessions.currentId}"></div>
+
+            <div>
+                <h3>Triggered Analytics</h3>
+                <div ng-repeat="analyticCount in analyticCounts | orderBy: 'analytic.name'" style="padding-bottom:.5em;">
+                        <div>
+                            <strong>{{analyticCount.analytic.name}}</strong>
+                            <span style="padding-left:5px;"><em><small>{{$parent.analyticState[analyticCount.analytic._id].mode}}</small></em></span>
+                            <span class="badge badge-fixed pull-right">{{analyticCount.count}}</span>
+                        </div>
+                        <div><attack-tags coverage-list="analyticCount.analytic.coverage"></attack-tags></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="dashboard-activity-sets">
+            <h2 style="display:inline-block;">Dashboard - Activity Sets</h2>
+            <div class="pull-right" style="margin-top:20px;">
+
+                    <div class="dashboard-filter" style="width:inherit;">
+                        <a ng-click="thresholds.distinct=!thresholds.distinct" ng-class="{active: thresholds.distinct}" class="btn btn-default active" role="button">
+                            {{thresholds.distinct ? 'Count Distinct' : 'Count Totals'}}
+                        </a>
+                    </div>
+
+                    <div class="dashboard-filter">
+					    <div><input-spinner value="thresholds.tactics" min="0" max="thresholds.distinct ? attack.tactics.length : null"></input-spinner></div>
+                        <div style="text-align:center;">Tactics</div>
+                    </div>
+
+                    <div class="dashboard-filter">
+					    <div><input-spinner value="thresholds.techniques" min="0" max="thresholds.distinct ? attack.techniques.length : null"></input-spinner></div>
+                        <div>Techniques</div>
+                    </div>
+
+            </div>
+
+            <div>
+                <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <!-- <th>Cluster #</th> -->
+                            <th style="text-align:center;">Selected</th>
+                            <th ng-click="ctrl.changeProp('tactics')">ATT&amp;CK Tactics
+                            <span ng-class="{'glyphicon-sort-by-order-alt': sortDir && sortProp==='tactics',
+                                             'glyphicon-sort-by-order': !sortDir && sortProp==='tactics'}"
+                                     class="glyphicon pull-right"></span></th>
+                            <th ng-click="ctrl.changeProp('techniques')">ATT&amp;CK Techniques
+                            <span ng-class="{'glyphicon-sort-by-order-alt': sortDir && sortProp==='techniques',
+                                             'glyphicon-sort-by-order': !sortDir && sortProp==='techniques'}"
+                                     class="glyphicon pull-right"></span></th>
+                            <th ng-click="ctrl.changeProp('events')">Event Count
+                            <span ng-class="{'glyphicon-sort-by-order-alt': sortDir && sortProp==='events',
+                                             'glyphicon-sort-by-order': !sortDir && sortProp==='events'}"
+                                     class="glyphicon pull-right"></span>
+                            </th>
+                            <th ng-click="ctrl.changeProp('alerts')">Alert Count
+                            <span ng-class="{'glyphicon-sort-by-order-alt': sortDir && sortProp==='alerts',
+                                             'glyphicon-sort-by-order': !sortDir && sortProp==='alerts'}"
+                                     class="glyphicon pull-right"></span>
+                            </th>
+                            <th  ng-click="ctrl.changeProp('hosts')">Hosts
+                            <span ng-class="{'glyphicon-sort-by-alphabet-alt': sortDir && sortProp==='hosts',
+                                             'glyphicon-sort-by-alphabet': !sortDir && sortProp==='hosts'}"
+                                     class="glyphicon pull-right"></span></th>
+                            </th>
+                            <th ng-click="ctrl.changeProp('ratio')">Alert/Event Ratio
+                            <span ng-class="{'glyphicon-sort-by-order-alt': sortDir && sortProp==='ratio',
+                                             'glyphicon-sort-by-order': !sortDir && sortProp==='ratio'}"
+                                     class="glyphicon pull-right"></span>
+                            </th>
+                            <th  ng-click="ctrl.changeProp('tacticSet')">Tactic Sets
+                            <span ng-class="{'glyphicon-sort-by-order-alt': sortDir && sortProp==='tacticSet',
+                                             'glyphicon-sort-by-order': !sortDir && sortProp==='tacticSet'}"
+                                     class="glyphicon pull-right"></span>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cluster in clusters | orderBy: ctrl.sort(sortProp) : sortDir | filter: ctrl.filter"
+                            ng-if="showAll || cluster.techniques.length"
+                            ng-click="selected[cluster.index]=!selected[cluster.index]">
+                            <!-- <td>{{$index}}</td> -->
+                            <td style="text-align:center;"><input type="checkbox" ng-checked="selected[cluster.index]"></td>
+                            <td>
+                                <span style="display: block"  ng-repeat="tacticInst in cluster.tactics | orderBy: 'tactic.name'">
+                                     <span class="badge badge-fixed badge-light">{{tacticInst.count}}</span> {{tacticInst.tactic.name}}
+                                </span>
+                            </td>
+                            <td>
+                                <span style="display: block" ng-repeat="techniqueInst in cluster.techniques | orderBy: 'technique.name'">
+                                    <span class="badge badge-light badge-fixed">{{techniqueInst.count}}</span> {{techniqueInst.technique.name}}
+                                </span>
+                            </td>
+                            <td class="numeric">{{cluster.events.length}}</td>
+                            <td class="numeric">{{cluster.results.length}}</td>
+                            <td><div ng-repeat="host in cluster.hosts">{{hostIndex[host].hostname}}</div></td>
+                            <td class="numeric">{{cluster.detection_rate.toFixed(2)}}</td>
+                            <td class="numeric">{{cluster.tactic_sets.length}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane height-full" id="dashboard-event-graph">
+            <h2>Event Graph</h2>
+            <div style="height:calc(100% - 60px - 30px);">
+                <div event-graph results="summary.results" events="summary.events" class="height-full" active-node="activeNode"></div>
+	            <div job-progress-bar filter="{'session':sessionId}"></div>
+
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="dashboard-attack">
+            <h2>ATT&amp;CK Technique Matrix - Heat Map</h2>
+            <matrix class="matrix" heat-map="summary.heatMap"></matrix>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="dashboard-hosts">
+            <h2>Hosts</h2>
+            <ul>
+                <li ng-repeat="host in summary.hosts | orderBy: 'hostname'">
+                    {{host.hostname}}
+                    <ul>
+                        <li ng-repeat="user in host.users">{{user}}</li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane height-full" id="dashboard-host-timeline">
+            <h2>Host Timeline</h2>
+            <div host-timeline class="width-full" style="height:calc(100% - 60px - 30px);" events="summary.events"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="dashboard-event-timeline">
+            <h2>Event Timeline</h2>
+            <event-timeline events="summary.events"></event-timeline>
+        </div>
+      </div>
+</div>

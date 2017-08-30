@@ -1,0 +1,313 @@
+/* load downloaded font */
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-Regular.ttf');
+}
+
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-Semibold.ttf');
+    font-weight: 600;
+}
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-SemiboldItalic.ttf');
+    font-weight: 600;
+    font-style: italic;
+}
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-Bold.ttf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-Italic.ttf');
+    font-style: italic;
+}
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-Light.ttf');
+    font-weight: 300;
+}
+@font-face {
+    font-family: SourceSansPro;
+    src: url('/lib/fonts/SourceSansPro-LightItalic.ttf');
+    font-style: italic;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 600;
+}
+
+.panel-title {
+    font-size: 20px;
+}
+
+.badge-light {
+    color: #444;
+    background-color: #ccc;
+}
+
+td.numeric {
+    text-align: right;
+}
+
+html {
+    font-family: SourceSansPro;
+}
+
+body {
+    font-family: SourceSansPro;
+    font-size: 15px;
+}
+
+.form-control {
+    font-size: 15px;
+}
+
+.label {
+    font-size: 13px;
+    line-height: .85;
+    font-weight: normal;
+}
+
+.th {
+    font-weight: 600;
+}
+
+.pad-15 {
+   padding: 15px;
+
+}
+
+.badge-fixed {
+    min-width: 46px;
+}
+
+.badge-fixed.pull-right {
+    margin-left: 5px;
+}
+
+.label-full { width: 100%; }
+
+a.hover-link {
+    font-size: 14px;
+}
+
+a.hover-link:hover {
+  text-decoration: none;
+}
+
+.hover-red:hover {
+  color: red;
+}
+.hover-green:hover {
+  color: green;
+}
+
+a:hover .on-hover {
+  display: initial;
+}
+
+a .on-hover {
+  display: none;
+}
+
+#container {
+    width: 100%;
+    height: 95%;
+    overflow-y: scroll;
+    position: fixed;
+}
+
+.technique-tags span {
+  margin: 1px 1px;
+  display: inline-block;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+  z-index: 0;
+}
+
+#timeline {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#timeline-button {
+    margin-left: 5%;
+    margin-bottom: 2em;
+    float: right;
+}
+
+.scrollable-dropdown {
+    overflow-x: hidden;
+    max-height: 300px;
+    height: auto;
+}
+
+.dashboard-filter {
+    width:80px;
+    margin-right:20px;
+    float:left;
+    display:inline;
+}
+
+/* tree.html */
+ /* https://bl.ocks.org/mbostock/4339083 */
+.node {
+  cursor: pointer;
+}
+
+.tree-node circle {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.collapsed circle {
+  fill: steelblue;
+}
+
+.disabled circle {
+  fill: red;
+}
+
+.leaf circle {
+  stroke-width: 2.5px;
+}
+
+
+ .float-box {
+    z-index: 10;
+ }
+
+
+.outline {
+     border-style: solid;
+     border-color: gray;
+     border-width: 1px;
+}
+
+
+.field-boxes {
+  font-size: 11pt;
+}
+
+html, body, .height-full {
+    height: 100%;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.pad-bottom {
+    padding-bottom: 15px;
+}
+
+.attackTable > tbody > tr > td {
+   line-height: 11x;
+   text-overflow: ellipsis;
+   overflow: hidden;
+}
+
+.attackTable > tbody > tr > td  > a{
+    color: black;
+}
+
+.attackTable > thead > tr > th > a {
+    color: white;
+}
+
+.technique-hl {
+    background-color: red;
+}
+
+.attackTable {
+    font-size: 15px;
+}
+
+.clusters {
+    display: inline;
+}
+
+#session-list {
+    overflow-y: auto;
+    max-height: 20em;
+}
+
+.btn-pad {
+	margin-bottom: 5px;
+}
+
+.database-header { font-size: 24px; }
+.edit-button { display:none; }
+.database-item:hover .edit-button { display:block; }
+
+/*
+@media (max-width: 990px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+*/
+
+.documentation ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+}
+
+.documentation ol > li {
+  display: table;
+  counter-increment: item;Q
+}
+
+.documentation ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;
+}
+
+.documentation li ol > li {
+  margin: 0;
+}
+
+.documentation li ol > li:before {
+  content: counters(item, ".") " ";
+}

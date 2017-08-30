@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title">Manage External Databases</h1>
+        </div>
+
+        <div class="panel-body">
+            <div class="database-item" ng-repeat="database in databases">
+                <div class="row">
+                    <div class="col-sm-10 database-header">{{database.name}}</div>
+                    <div class="col-sm-2">
+                    <span class="remove-button pull-right"><a class="edit-button" href="#/global/databases/{{database._id}}"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="(field, fieldData) in schemas[database._cls].fields" ng-if="field !== 'name'">
+                    <div class="col-sm-2"><strong>{{field}}</strong></div>
+                    <div class="col-sm-10">{{database[field]}}</div>
+                </div>
+                <hr ng-if="!$last"/>
+            </div>
+
+
+            <div class="row" style="padding-top:1em;">
+                <div class="col-sm-12"><a href="#/admin/databases/connect">Connect to Database</a></div>
+            </div>
+        </div>
+    </div>
+</div>

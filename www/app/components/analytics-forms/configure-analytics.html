@@ -1,0 +1,56 @@
+<!--  Taken from https://getbootstrap.com/javascript/, 4-15-2016 (MIT License https://github.com/twbs/bootstrap/blob/master/LICENSE) -->
+<div id="save-analytic-configuration" class="modal fade" tabindex="-1" role="dialog">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Save New Analytic Configuration</h4>
+    </div>
+
+    <div class="modal-body">
+      <p><span class="glyphicon glyphicon-warning-sign"></span>
+        Save Configuration as
+        <input class="form-control" type="text" ng-model="configName" placeholder="Custom Analytic Set">
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success submit" ng-click="configCtrl.saveConfig()">Save Configuration</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading" ><h1 class="panel-title">Configure Analytics</h1></div>
+        <form class="panel-body">
+            <div class="form-group">
+                <analytic-configuration-buttons platforms="platforms" configuration="configuration" active-config="activeConfig" configurations="configurations"></analytic-configuration-buttons>
+
+                <div class="pull-right">
+
+                    <button type="button" ng-hide="activeConfig" class="btn btn-success" data-toggle="modal" data-target="#save-analytic-configuration">Create Configuration</button>
+
+                    <div class="btn-group" ng-show="activeConfig">
+                        <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                            Save <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu scrollable-dropdown">
+                            <li><a ng-click="configCtrl.update()">Update <strong>{{activeConfig.name}}</strong></a></li>
+                            <li class="divider"></li>
+                            <li><a href="" data-toggle="modal" data-target="#save-analytic-configuration">Save As...</a></li>
+                        </ul>
+                    </div>
+
+                    <button type="button" ng-show="activeConfig" class="btn btn-danger" ng-click="configCtrl.removeConfig(activeConfig._id)">
+                        Remove <span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+            </div>
+
+            <analytic-form-content platforms="platforms" configuration="configuration"></analytic-form-content>
+
+        </form>
+    </div>
+</div>

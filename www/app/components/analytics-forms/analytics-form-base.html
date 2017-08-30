@@ -1,0 +1,91 @@
+
+
+<!-- ATT&CK Tactics filter-->
+<div class="row">
+  <label class="col-sm-4 control-label">Filter on ATT&amp;CK</label>
+  <div class="col-sm-8">
+    <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            {{ctrl.selectedTactic.name || ' Tactics'}}
+        <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li ng-repeat="tactic in attack.tactics | orderBy: 'name'">
+                <a ng-click="ctrl.selectedTactic = tactic">
+                    {{tactic.name}}
+                </a>
+            <li>
+        </ul>
+    </div>
+      <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            {{ctrl.selectedTechnique.name || 'Techniques'}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu scrollable-dropdown">
+            <li ng-repeat="technique in attack.techniques | orderBy: 'name' ">
+                <a ng-click="ctrl.selectedTechnique = technique"> {{technique.name}} </a>
+            <li>
+        </ul>
+    </div>
+    <a style="cursor: pointer" ng-if="ctrl.selectedTechnique || ctrl.selectedTactic"
+       ng-click="ctrl.selectedTechnique=ctrl.selectedTactic=null;"> Clear</a>
+  </div>
+</div>
+
+<div class="row">
+  <label class="col-sm-4 control-label">
+      Text Search
+  </label>
+  <div class="col-sm-8">
+     <input type="text" ng-model="ctrl.searchQuery" class="form-control">
+  </div>
+</div>
+
+<div class="row">
+  <label class="col-sm-4 control-label">Filter by Platform</label>
+  <div class="col-sm-8">
+      <div class="dropdown">
+        <span ng-repeat="(platform, value) in analytics | countBy: 'platform'">
+           <input type="checkbox" class="platform" ng-model="platforms[platform]"> {{platform}}
+        </span>
+      </div>
+  </div>
+</div>
+
+
+<div ng-repeat="(platform, list) in analytics | groupBy: 'platform'" class="panel panel-default {{platform}}_analytics" ng-if="platforms[platform]">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{platform}} Analytics</h3>
+  </div>
+  <div class="panel-body">
+    <div class="form-group" ng-repeat="analytic in list | orderBy: 'name' | filter: ctrl.filter">
+      <div class="input-group"> 
+        <span class="input-group-addon">
+          <input type="checkbox" name="analytic" ng-model="configuration[analytic._id].selected">
+        </span>
+
+        <div class="input-group-btn" ng-hide="disableModes">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{$parent.modes[configuration[analytic._id].mode] || 'Run Mode'}} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a ng-repeat="(mode, text) in $parent.modes" ng-click="configuration[analytic._id].mode=mode">{{text}}</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+
+        <span class="form-control">{{analytic.name}}</span>
+      </div>
+
+      <label ng-if="analytic.coverage.length">
+          <attack-tags  coverage-list=analytic.coverage></attack-tags>
+      </label>
+      <label ng-if="analytic.mapped_events.length">
+        <event-tags mapped-events="analytic.mapped_events"></event-tags>
+      </label>
+      <a class="pull-right hover-link" target="_blank" href="#/analytics/modify/{{analytic._id}}">
+          <span class="on-hover">Edit </span><span class="glyphicon glyphicon-pencil"/>
+      </a>
+      <div class="input-group">{{analytic.description}}</div>
+    </div>
+  </div>
+</div>

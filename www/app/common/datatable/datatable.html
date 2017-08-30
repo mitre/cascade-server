@@ -1,0 +1,34 @@
+<table class="table table-bordered table-striped" style="font-size:1em;">
+    <thead>
+    <tr>
+        <th ng-repeat="col in columns" ng-click="datatableCtrl.orderTable(col)">
+            {{headers ? headers[col] : col}}
+            <span ng-class="{'glyphicon-sort-by-alphabet': !datatableCtrl.sortBool && (datatableCtrl.sortProp == col),
+                             'glyphicon-sort-by-alphabet-alt': datatableCtrl.sortBool && (datatableCtrl.sortProp == col)}"
+                  class="glyphicon pull-right"></span>
+        </th>
+    </tr>
+    </thead>
+
+    <tbody ng-if="!htmlBind"><!-- no need to evaluate this more than once -->
+        <tr ng-repeat="row in rows | orderBy: datatableCtrl.sortProp : datatableCtrl.sortBool">
+           <td ng-repeat="col in columns">
+               <span ng-if="isArray(row[col])">
+                   <span ng-repeat="line in row[col]" ng-bind="line" style="display:block;"></span>
+               </span>
+               <span ng-if="!isArray(row[col])" ng-bind="row[col]"></span>
+           </td>
+        </tr>
+    </tbody>
+
+    <tbody ng-if="htmlBind"><!-- no need to evaluate this more than once -->
+        <tr ng-repeat="row in rows | orderBy: datatableCtrl.sortProp : datatableCtrl.sortBool">
+           <td ng-repeat="col in columns">
+               <span ng-if="isArray(row[col])">
+                <span ng-repeat="line in row[col]" ng-bind-html="line" style="display:block;"></span>
+               </span>
+               <span ng-if="!isArray(row[col])" ng-bind-html="row[col]"></span>
+           </td>
+        </tr>
+    </tbody>
+</table>
