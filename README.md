@@ -71,8 +71,8 @@ well (e.g. in a second console):
 * Login to the CASCADE web server. 
 * Click your name in the top-right corner of the page. Select 'Manage External Databases.'
 * Click Connect to Database and fill out the ensuing form. 
-*NOTE: Accounts for these database may be user specific, so those credentials are configured at a later step, 
-in your CASCADE user's profile.*
+*NOTE: Access to these database may require different credentials for each user specific; these credentials are
+configured at a later step, in your CASCADE user's profile.*
 * Click Connect
 
 ### Configure an account to use a database
