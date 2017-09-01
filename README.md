@@ -63,9 +63,20 @@ well (e.g. in a second console):
 * Click 'Login'
 * Click 'Create Account'
 * Alternatively, accounts can be created from the command line:
-
-    python cascade.py --create_user username
     
+    ```python cascade.py --create_user username```
+
+### View Example Session
+@rossdwolf has created an example session out of data released by MITRE's BRAWL project. This data was generated
+by an automated adversary operating in a virtual environment. To read more about this effort see the
+repository for this [BRAWL game](https://github.com/mitre/brawl-public-game-001).  To explore the data:
+* Load the session into CASCADE's database:
+
+    ```python cascade.py -i misc/brawl-public-game-001.bson```
+* Start the CASCADE web service and login
+* Find "brawl-public-game-001" in from the navbar's Session dropdown (it may be necessary to refresh the browser for the
+session to appear).
+
 ### Configure Connection to ElasticSearch/Splunk Data Source
 *NOTE: CASCADE expects data to be normalized according to its Data Model.*
 * Login to the CASCADE web server. 
