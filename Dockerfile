@@ -6,6 +6,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-COPY docker_defaults.yml conf/default.yml
+COPY docker_defaults.yml conf/defaults.yml
 
-RUN docker-start.sh
+CMD /bin/bash docker_start.sh

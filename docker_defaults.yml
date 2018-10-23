@@ -29,10 +29,10 @@ links:
         https: ""
 
 server:
-    hostname: <autogenerate>
+    hostname: cascade
     https:
         certfile: misc/cascade.mitre.org.pem
         enabled: false
         keyfile: misc/cascade.mitre.org.key
-    interface: 127.0.0.1
+    interface: 0.0.0.0
     port: 5000
