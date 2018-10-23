@@ -31,13 +31,17 @@ fernet = None  # type: Fernet
 def connect():
     global serializer, fernet
     crypto_info = settings.load()['database']['crypto']
+    mongo_host = settings.load()['database']['mongo'].get('host', '127.0.0.1')
+    mongo_port = settings.load()['database']['mongo'].get('port', '27017')
     serializer = URLSafeSerializer(crypto_info['key'])
     fernet = Fernet(crypto_info['fernet'])
-    mongoengine.connect(name, tz_aware=True)
+    mongoengine.connect(name, host=mongo_host, port=mongo_port, tz_aware=True)
 
 
 def pymongo():
-    return MongoClient()[name]
+    mongo_host = settings.load()['database']['mongo'].get('host', '127.0.0.1')
+    mongo_port = settings.load()['database']['mongo'].get('port', '27017')
+    return MongoClient(host=mongo_host, port=mongo_port)[name]
 
 
 class EncryptedStringField(mongoengine.StringField):

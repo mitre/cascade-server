@@ -1,0 +1,32 @@
+---
+version: '2'
+volumes:
+  mongo_data: {}
+  cascade_conf: {}
+services:
+  mongodb:
+    image: mongo
+    volumes:
+      - mongo_data:/data
+
+  cascade_web:
+    build:
+      context: .
+      args:
+        - "http_proxy:${http_proxy}"
+        - "https_proxy:${https_proxy}"
+        - "no_proxy:${no_proxy}"
+    volumes:
+      - cascade_conf:/opt/cascade-server/conf
+    ports:
+      - "5000:5000"
+
+  cascade_jobs:
+    build:
+      context: .
+    volumes:
+      - cascade_conf:/opt/cascade-server/conf
+    depends_on:
+      - cascade_web
+      - mongodb
+    command: python cascade.py -vv --jobs
