@@ -155,7 +155,13 @@ class ElasticAbstraction(DataModelQueryLayer):
     @staticmethod
     def _escape_value(value):
         if isinstance(value, basestring):
-            return '"{}"'.format(value.replace('\\', '\\\\').replace('\"', '\\"').replace('(', '\\(').replace(')', '\\)'))
+            return '{}'.format(value.replace('\\', '\\\\').
+                               replace('\"', '\\"').
+                               replace('(', '\\(').
+                               replace(')', '\\)').
+                               replace(':', '\\:').
+                               replace('/', '\\/').
+                               replace(' ', '\\ '))
         else:
             return value
 
