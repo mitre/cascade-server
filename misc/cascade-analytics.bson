@@ -2587,7 +2587,7 @@
                 "_cls": "FieldComparison", 
                 "comparator": "WildCard", 
                 "field": "command_line", 
-                "value": "* \\\\*\\"
+                "value": "*\\\\*"
               }
             ]
           }
