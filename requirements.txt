@@ -22,6 +22,7 @@ mongoengine==0.15.3
 passlib==1.7.1
 pycparser==2.19
 pymongo==3.7.2
+pyopenssl==18.0.0
 python-dateutil==2.7.3
 pyyaml==3.13
 requests==2.20.0

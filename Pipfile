@@ -18,6 +18,7 @@ python-dateutil = "*"
 requests = "*"
 passlib = "*"
 markdown = "*"
+pyopenssl = "*"
 
 [dev-packages]
 
