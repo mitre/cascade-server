@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyyaml = "*"
+gevent = "*"
+pymongo = "*"
+mongoengine = "*"
+splunk-sdk = "*"
+elasticsearch = "*"
+flask = "*"
+"antlr4-python2-runtime" = ">=4.5,<4.6"
+cryptography = "*"
+gevent-websocket = "*"
+python-dateutil = "*"
+requests = "*"
+passlib = "*"
+markdown = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "2.7"
