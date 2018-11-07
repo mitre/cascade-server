@@ -14,7 +14,7 @@ from data_model.event import DataModelEvent
 import requests
 
 
-attack_url = 'https://attack.mitre.org'
+attack_url = 'https://attack-old.mitre.org'
 proxies = {}
 
 class AttackTactic(Document):

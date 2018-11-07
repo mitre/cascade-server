@@ -21,7 +21,7 @@ database:
         key: <autogenerate>
 
 links:
-    attack: https://attack.mitre.org
+    attack: https://attack-old.mitre.org
     car: https://car.mitre.org
     smtp: ""
     proxies:
