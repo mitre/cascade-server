@@ -5,7 +5,7 @@ volumes:
   cascade_conf: {}
 services:
   mongodb:
-    image: mongo
+    image: mongo:4.0
     volumes:
       - mongo_data:/data
 
