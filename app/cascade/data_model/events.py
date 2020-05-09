@@ -247,7 +247,7 @@ class RegistryEvent(DataModelEvent):
         # Key Operations
         "create_key",    # CreateSubKey
         "delete_key",    # DeleteSubKey
-        "rename_key",    # ?
+        "rename_key",    # RenameKey
         # Value Operations
         "delete_value",  # DeleteValue
         "read_value",    # GetValue
