@@ -8,10 +8,12 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from server import app
+import re
+
 from flask import Response
 import markdown
-import re
+
+from server import app
 
 
 @app.route("/docs/<filebase>", methods=['GET'])

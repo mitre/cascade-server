@@ -8,13 +8,14 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from __future__ import print_function
 import os
 import socket
 import base64
+
 import yaml
 import cryptography.fernet
-from .utils import import_database_from_file, confirm
+
+from app.utils import import_database_from_file, confirm
 
 url = None
 config = None
@@ -45,7 +46,7 @@ def get_value(key, default, indent=0):
     elif isinstance(default, (list, tuple)):
         return default
     else:
-        new_value = raw_input("{}{key} ({default}): ".format(tab * indent, key=key, default=str(default).strip())).strip()
+        new_value = input("{}{key} ({default}): ".format(tab * indent, key=key, default=str(default).strip())).strip()
         if new_value == "":
             return default
         elif isinstance(default, bool):
@@ -86,4 +87,4 @@ def setup(auto_defaults=False):
         import_database_from_file('misc/{}'.format(filename))
 
 
-__all__ = ["load_settings", "setup"]
+__all__ = ["setup"]

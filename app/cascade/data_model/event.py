@@ -9,16 +9,15 @@
 # (C) 2017 The MITRE Corporation.
 
 import datetime
-from collections import defaultdict
-from ..database import UniqueDocument
+
 from mongoengine.base import TopLevelDocumentMetaclass
 from mongoengine import DoesNotExist
-from mongoengine.document import Document
 from mongoengine.fields import (
     DateTimeField, DictField, ListField, ReferenceField, EmbeddedDocument, EmbeddedDocumentField,
     DynamicField, StringField, DecimalField
 )
 
+from app.cascade.database import UniqueDocument
 from app.cascade.data_model.host import Host
 from .query import QueryTerm, CompareString, FieldQuery, EmptyQuery, EmbeddedQueryTerm
 

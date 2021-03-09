@@ -8,17 +8,17 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from __future__ import print_function
-import bson.json_util
 import datetime
-from collections import defaultdict
+import json
+
+import bson.json_util
 from mongoengine.document import BaseDocument
 from pymongo.errors import BulkWriteError
 from mongoengine.queryset.base import BaseQuerySet
 from pymongo.cursor import CursorType
 from bson import ObjectId
-import json
-import cascade.database
+
+import app.cascade.database
 
 default_collections = (
     'analytic',
@@ -35,7 +35,7 @@ def all_collections(cascade_db):
 
 def confirm(message):
     while True:
-        answer = raw_input(message + " ").strip().lower()[:1]
+        answer = input(message + " ").strip().lower()[:1]
         if answer == 'y':
             return True
         elif answer == 'n':
@@ -65,7 +65,7 @@ def bson_default(obj):
 
 
 def export_database(filename, collections=default_collections, select_all=False):
-    database = cascade.database.pymongo()
+    database = app.cascade.database.pymongo()
 
     dump = []
 
@@ -83,7 +83,7 @@ def export_database(filename, collections=default_collections, select_all=False)
 
 
 def import_database(dump, collections=None, overwrite=None):
-    database = cascade.database.pymongo()
+    database = app.cascade.database.pymongo()
 
     if not isinstance(dump, list):
         raise ValueError("Dump file is not a BSON list")
@@ -123,7 +123,7 @@ def import_database_from_file(filename, collections=None, overwrite=None):
 
 
 def purge_database(collections=default_collections, select_all=False, prompt=True):
-    database = cascade.database.pymongo()
+    database = app.cascade.database.pymongo()
 
     if select_all:
         collections = all_collections(database)

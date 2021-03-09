@@ -8,14 +8,14 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from data_model.events import ProcessEvent, FileEvent, NetworkEvent, ThreadEvent, RegistryEvent
-from data_model.query import FieldQuery
-from data_model import pivot
-from data_model.pivots import Criteria
-from ..utils import command_to_argv, next_arg
 import datetime
 import logging
-import re
+
+from app.cascade.data_model.events import ProcessEvent, FileEvent, NetworkEvent, ThreadEvent, RegistryEvent
+from app.cascade.data_model.query import FieldQuery
+from app.cascade.data_model import pivot
+from app.cascade.data_model.pivots import Criteria
+from app.utils import command_to_argv, next_arg
 
 logger = logging.getLogger(__name__)
 

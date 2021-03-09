@@ -8,17 +8,19 @@
 #
 # (C) 2017 The MITRE Corporation.
 
+import datetime
+
+import dateutil.parser
+import dateutil.tz
+import mongoengine
 from cryptography.fernet import Fernet
 from itsdangerous import URLSafeSerializer
 from mongoengine import EmbeddedDocument, Document
 from mongoengine.fields import BaseField, StringField, DateTimeField
 from mongoengine.errors import NotUniqueError
 from pymongo import MongoClient
-import mongoengine
-import datetime
-import dateutil.parser
-import dateutil.tz
-from .. import settings
+
+from app import settings
 
 
 name = 'cascade2'
@@ -111,7 +113,7 @@ class TimeDeltaField(mongoengine.fields.BaseField):
         """ Prepare python code before submitting it to mongo """
         if isinstance(value, datetime.timedelta):
             return value
-        elif isinstance(value, basestring):
+        elif isinstance(value, str):
             return self.from_str(value)
         elif isinstance(value, (int, float)):
             return datetime.timedelta(seconds=value)
@@ -121,7 +123,7 @@ class TimeDeltaField(mongoengine.fields.BaseField):
         if isinstance(value, datetime.timedelta):
             value = value.total_seconds()
 
-        elif isinstance(value, basestring):
+        elif isinstance(value, str):
             value = self.from_str(value).total_seconds()
 
         return value
@@ -297,9 +299,9 @@ class AbsoluteRange(DateRange):
 
     def __init__(self, *args, **kwargs):
         super(AbsoluteRange, self).__init__(*args, **kwargs)
-        if isinstance(self.start, basestring):
+        if isinstance(self.start, str):
             self.start = dateutil.parser.parse(self.start)
-        if isinstance(self.end, basestring):
+        if isinstance(self.end, str):
             self.end = dateutil.parser.parse(self.end)
 
     def constrain(self, start, end):

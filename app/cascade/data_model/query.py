@@ -8,10 +8,11 @@
 #
 # (C) 2017 The MITRE Corporation.
 
+import re
+from enum import Enum
+
 from mongoengine.document import EmbeddedDocument
 from mongoengine.fields import EmbeddedDocumentField, StringField, DynamicField, ListField
-from enum import Enum  # this has been back ported from python3
-import re
 
 
 class QueryComparators(Enum):

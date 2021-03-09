@@ -8,11 +8,10 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from __future__ import print_function
-
 import json
 import traceback
 import datetime
+import httplib
 from functools import wraps
 from collections import defaultdict
 
@@ -21,23 +20,21 @@ import mongoengine
 from mongoengine.queryset.base import BaseQuerySet
 from flask import request, Response
 
-import cascade
 from app import utils
-from .cascade.jobs import AnalyticJob, Job, TuningJob, CustomQueryJob, InvestigateJob
-from .cascade.analytics import AnalyticResult, Analytic, CascadeAnalytic, AnalyticBaseline, ExternalAnalytic, AnalyticConfigurationList, AnalyticConfiguration
-from .cascade.data_model import Host, parser
-from .cascade.data_model.event import DataModelEvent, InvalidFieldError, InvalidActionError, InvalidObjectError, DataModelQuery
-from .cascade.data_model import event_lookup, pivot_lookup
-from .cascade.database import DateRange, AbsoluteRange, RelativeRange
-from .cascade.query_layers import mappings, DataModelQueryLayer
-from .cascade.session import Session, SessionState
-from .cascade.cluster import HierarchicalCluster, ClusterKey
-from .cascade.attack import AttackTactic, AttackTechnique, refresh_attack, TacticSet
-from cascade.query_layers import DatabaseInfo
-from .server import app
-from . import users
-from .utils import json_default, bson_default
-import httplib
+from app.cascade.jobs import AnalyticJob, Job, TuningJob, CustomQueryJob, InvestigateJob
+from app.cascade.analytics import AnalyticResult, Analytic, CascadeAnalytic, AnalyticBaseline, ExternalAnalytic, AnalyticConfigurationList, AnalyticConfiguration
+from app.cascade.data_model import Host, parser
+from app.cascade.data_model.event import DataModelEvent, InvalidFieldError, InvalidActionError, InvalidObjectError, DataModelQuery
+from app.cascade.data_model import event_lookup, pivot_lookup
+from app.cascade.database import DateRange, AbsoluteRange, RelativeRange
+from app.cascade.query_layers import mappings, DataModelQueryLayer
+from app.cascade.session import Session, SessionState
+from app.cascade.cluster import HierarchicalCluster, ClusterKey
+from app.cascade.attack import AttackTactic, AttackTechnique, refresh_attack, TacticSet
+from app.cascade.query_layers import DatabaseInfo
+from app.server import app
+from app import users
+from app.utils import json_default, bson_default
 from itertools import chain
 import settings
 #

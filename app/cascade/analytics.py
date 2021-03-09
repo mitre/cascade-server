@@ -8,15 +8,16 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from database import UniqueDocument
-from data_model.query import QueryTerm, EmbeddedQueryTerm
-from data_model.event import DataModelEvent, DataModelQuery, event_lookup
-from .attack import TechniqueMapping
 from mongoengine.document import Document, EmbeddedDocument, DynamicDocument
 from mongoengine.fields import (
     EmbeddedDocumentField, DictField, StringField, ListField, BooleanField, ReferenceField, DateTimeField
 )
-from cluster import HierarchicalCluster
+
+from app.cascade.cluster import HierarchicalCluster
+from app.cascade.database import UniqueDocument
+from app.cascade.data_model.query import QueryTerm, EmbeddedQueryTerm
+from app.cascade.data_model.event import DataModelEvent, DataModelQuery, event_lookup
+from app.cascade.attack import TechniqueMapping
 
 
 class ObjectMapping(EmbeddedDocument):

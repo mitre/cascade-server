@@ -8,14 +8,14 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from __future__ import print_function
+import logging
 import threading
+from functools import wraps
+
 import gevent
 import gevent.monkey
 import gevent.local
 import gevent.pool
-from functools import wraps
-import logging
 
 logger = logging.getLogger(__name__)
 enabled = False

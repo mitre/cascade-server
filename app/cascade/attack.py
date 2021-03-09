@@ -8,14 +8,14 @@
 #
 # (C) 2017 The MITRE Corporation.
 
+import requests
 from mongoengine.document import Document, EmbeddedDocument
 from mongoengine.fields import DictField, StringField, ListField, URLField, ReferenceField, IntField
-from data_model.event import DataModelEvent
-import requests
 
 
 attack_url = 'https://attack-old.mitre.org'
 proxies = {}
+
 
 class AttackTactic(Document):
     name = StringField()

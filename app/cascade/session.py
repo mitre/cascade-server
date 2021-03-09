@@ -8,8 +8,6 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from __future__ import print_function
-
 import json
 import logging
 
@@ -17,11 +15,11 @@ from gevent.queue import Queue
 from mongoengine.document import Document, EmbeddedDocument
 from mongoengine.fields import EmbeddedDocumentField, StringField, ReferenceField, ListField
 
-from analytics import AnalyticResult, Analytic, AnalyticConfiguration
-from .database import DateRange, DisjointSet
-from query_layers import DataModelQueryLayer
-from .data_model.event import DataModelEvent
-from .. import async
+from app.cascade.analytics import AnalyticResult, Analytic, AnalyticConfiguration
+from app.cascade.database import DateRange, DisjointSet
+from app.cascade.query_layers import DataModelQueryLayer
+from app.cascade.data_model.event import DataModelEvent
+from app import async_wrapper
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +90,7 @@ class SessionStream(object):
         self.count += 1
         queue_id = self.count
 
-        if not async.enabled:
+        if not async_wrapper.enabled:
             # print('WARNING! Stream functionality will not work without gevent')
             raise StopIteration()
 

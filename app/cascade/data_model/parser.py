@@ -9,13 +9,15 @@
 # (C) 2017 The MITRE Corporation.
 
 from antlr4 import *
-from language.cqlLexer import cqlLexer
-from language.cqlListener import cqlListener
-from language.cqlParser import cqlParser
-from .query import QueryTerm, FieldComparison, FieldComparators, QueryComparators, Operation, FieldQuery
-from .event import DataModelQuery, InvalidFieldError, InvalidObjectError, InvalidActionError
-from ..analytics import AnalyticReference, Analytic, CascadeAnalytic
-import traceback
+
+from app.cascade.data_model.language.cqlLexer import cqlLexer
+from app.cascade.data_model.language.cqlListener import cqlListener
+from app.cascade.data_model.language.cqlParser import cqlParser
+from app.cascade.data_model.query import (
+    QueryTerm, FieldComparison, FieldComparators, QueryComparators, Operation, FieldQuery
+)
+from app.cascade.data_model.event import DataModelQuery, InvalidFieldError, InvalidObjectError, InvalidActionError
+from app.cascade.analytics import AnalyticReference, Analytic, CascadeAnalytic
 
 
 class ParserError(ValueError):
@@ -111,7 +113,7 @@ class cqlQueryBuilder(cqlListener):
         value = self.pop()
         comparator = self.pop()
         key = self.pop()
-        if isinstance(value, basestring) and '*' in value:
+        if isinstance(value, str) and '*' in value:
             wildcard_comparison = FieldComparison(key, value, FieldComparators.WildCard)
             if comparator == FieldComparators.NotEquals:
                 wildcard_comparison = ~wildcard_comparison
@@ -145,7 +147,7 @@ def generate_query(query_string):
 
 
 def _escape_value(value):
-    if isinstance(value, basestring):
+    if isinstance(value, str):
         return '"{}"'.format(value.replace('\\', '\\\\').replace('"', '\\"'))
     else:
         return value

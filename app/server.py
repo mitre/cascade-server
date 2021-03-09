@@ -15,10 +15,11 @@ import logging
 from flask import Flask
 from geventwebsocket.handler import WebSocketHandler
 from gevent.pywsgi import WSGIServer
-import async
-import cascade.database
-from cascade import attack, runner
+
+import app.async_wrapper
+import app.cascade.database
 import settings
+from app.cascade import attack, runner
 
 
 def configure_flask_logger():
@@ -49,12 +50,12 @@ def main_page():
 def connect_to_database():
     # Connect to the database and update anything that needs to be
     # ASYNC should be started first
-    async.enable_async()
-    cascade.database.connect()
+    app.async_wrapper.enable_async()
+    app.cascade.database.connect()
 
 
 def run_job_loop(debug=False):
-    async.enable_async()
+    app.async_wrapper.enable_async()
     connect_to_database()
     runner.run(debug=debug)
 
@@ -68,7 +69,7 @@ def run_server(debug=False):
 
     interface = config['server']['interface']
     port = config['server']['port']
-    threaded = True if debug else not async.enable_async()
+    threaded = True if debug else not app.async_wrapper.enable_async()
 
     flask_logger = configure_flask_logger()
     connect_to_database()

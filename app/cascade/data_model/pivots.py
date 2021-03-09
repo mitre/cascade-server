@@ -8,11 +8,11 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from __future__ import print_function
-from . import pivot
-from .events import ProcessEvent, FileEvent, ModuleEvent, ThreadEvent, NetworkEvent, RegistryEvent
 import datetime
 import logging
+
+from app.cascade.data_model import pivot
+from app.cascade.data_model.events import ProcessEvent, FileEvent, ModuleEvent, ThreadEvent, NetworkEvent, RegistryEvent
 
 logger = logging.getLogger(__name__)
 

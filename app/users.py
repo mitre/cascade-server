@@ -11,18 +11,17 @@
 # Global imports
 import datetime
 import logging
+import re
 
+import smtplib
 from itsdangerous import BadSignature, URLSafeTimedSerializer
 from mongoengine import Document, EmbeddedDocumentField, ListField, StringField, EmailField
 from passlib.hash import sha256_crypt
+from email.mime.text import MIMEText
 
 from app.utils import AuthenticationError
-from cascade.database import serializer
 from cascade.query_layers.base import DataModelQueryLayer, UserDatabaseInfo
 import settings
-import smtplib
-import re
-from email.mime.text import MIMEText
 
 
 logger = logging.getLogger(__name__)
