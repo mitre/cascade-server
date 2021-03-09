@@ -18,7 +18,7 @@ from gevent.pywsgi import WSGIServer
 
 import app.async_wrapper
 import app.cascade.database
-import settings
+import app.settings
 from app.cascade import attack, runner
 
 
