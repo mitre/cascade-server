@@ -8,7 +8,7 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from antlr4 import *
+from antlr4 import InputStream, ParseTreeWalker, CommonTokenStream
 
 from app.cascade.data_model.language.cqlLexer import cqlLexer
 from app.cascade.data_model.language.cqlListener import cqlListener
