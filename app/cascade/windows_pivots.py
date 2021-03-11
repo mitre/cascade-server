@@ -436,7 +436,7 @@ def cmd_copy(process_event, ctx):
 
             # TODO: get rid of this quick fix for when network paths show up starting with '\' insted of '\\'
             if dest_file[0] == '\\' and dest_file[1] != '\\':
-                dest_file = u'\\' + dest_file
+                dest_file = '\\' + dest_file
 
             file_events = []
 

@@ -11,9 +11,10 @@
 import json
 import traceback
 import datetime
-from functools import wraps
 from collections import defaultdict
+from functools import wraps
 from http import HTTPStatus
+from itertools import chain
 
 
 import bson
@@ -33,11 +34,10 @@ from app.cascade.session import Session, SessionState
 from app.cascade.cluster import HierarchicalCluster, ClusterKey
 from app.cascade.attack import AttackTactic, AttackTechnique, refresh_attack, TacticSet
 from app.cascade.query_layers import DatabaseInfo
-from app.server import app
+from app.server import flask_app
 from app import users
 from app.utils import json_default, bson_default
-from itertools import chain
-import settings
+from app import settings
 #
 #  Route the REST API  (output in JSON)
 #
@@ -68,7 +68,7 @@ class JSONResponse(Response):
 
 
 def rest_doc(api_function):
-    doc = api_function.func_doc
+    doc = api_function.__doc__
     if doc is not None:
         return "\n".join(_.strip() for _ in doc.strip().splitlines())
 
@@ -117,7 +117,7 @@ def api(uri, login=False, **kwargs):
                 return JSONResponse(results, status=status_code)
 
         endpoint = kwargs.pop('endpoint', f.__name__)  # + str(len(api_endpoints)))
-        app.add_url_rule(uri, endpoint, wrapped_f, **kwargs)
+        flask_app.add_url_rule(uri, endpoint, wrapped_f, **kwargs)
         assert endpoint not in api_endpoints
         api_endpoints[endpoint] = f, uri, kwargs.get('methods', ['GET']), rest_doc(f)
         return f
@@ -295,7 +295,7 @@ def query_user(user):
     return user_info, HTTPStatus.OK
 
 
-@app.route('/api/user', methods=['POST'])
+@flask_app.route('/api/user', methods=['POST'])
 def create_user():
     if not settings.load()['config'].get('allow_account_creation', False):
         return JSONResponse(status=HTTPStatus.FORBIDDEN)
@@ -893,7 +893,7 @@ def get_clusters_host(session, user=None):
         'links': links[i],
         'reverse_links': reverse_links[i]
         }
-        for i in xrange(len(unique_groups))
+        for i in range(len(unique_groups))
     ]
 
     return host_clusters, HTTPStatus.OK
@@ -1287,7 +1287,7 @@ def upload_data(user=None):
     return {'message': "Session imported successfully"}, HTTPStatus.OK
 
 
-@app.route('/api/sessions/<session>/stream')
+@flask_app.route('/api/sessions/<session>/stream')
 def stream(session, user=None):
     # Testing for HTTP SSE
     session = Session.objects.with_id(session)

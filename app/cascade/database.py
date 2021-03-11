@@ -147,7 +147,7 @@ class UniqueDocument(Document):
 
     def get_uuid(self):
         uuid_string = "-".join(str(_).lower() for _ in self.get_uuid_tuple())
-        if hasattr(self, '_cls') and isinstance(self._cls, basestring):
+        if hasattr(self, '_cls') and isinstance(self._cls, str):
             uuid_string = self._cls + "-" + uuid_string
         return uuid_string
 

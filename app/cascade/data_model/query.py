@@ -89,7 +89,7 @@ class QueryTerm(object):
         return self.compare(item)
 
 
-class EmbeddedQueryTerm(QueryTerm, EmbeddedDocument):
+class EmbeddedQueryTerm(EmbeddedDocument, QueryTerm):
     meta = {'allow_inheritance': True}
 
 
@@ -174,10 +174,10 @@ class FieldComparison(EmbeddedQueryTerm):
             except ValueError as e:
                 return False
 
-        elif isinstance(value, basestring) and not isinstance(event_value, basestring):
+        elif isinstance(value, str) and not isinstance(event_value, str):
             event_value = type(value)(event_value)
 
-        if isinstance(event_value, basestring) and isinstance(value, basestring):
+        if isinstance(event_value, str) and isinstance(value, str):
             event_value = event_value.lower()
             value = value.lower()
 

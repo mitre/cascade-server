@@ -20,8 +20,8 @@ from passlib.hash import sha256_crypt
 from email.mime.text import MIMEText
 
 from app.utils import AuthenticationError
-from cascade.query_layers.base import DataModelQueryLayer, UserDatabaseInfo
-import settings
+from app.cascade.query_layers.base import DataModelQueryLayer, UserDatabaseInfo
+from app import settings
 
 
 logger = logging.getLogger(__name__)

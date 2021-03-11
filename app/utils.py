@@ -8,6 +8,7 @@
 #
 # (C) 2017 The MITRE Corporation.
 
+import collections.abc
 import datetime
 import json
 
@@ -51,6 +52,8 @@ def json_default(obj):
         return str(obj)
     elif isinstance(obj, datetime.datetime):
         return obj.isoformat()
+    elif isinstance(obj, collections.abc.KeysView):
+        return obj
     else:
         raise TypeError('Object of type %s with value of %s is not JSON serializable' % (type(obj), repr(obj)))
 

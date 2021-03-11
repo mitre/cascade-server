@@ -18,7 +18,7 @@ from gevent.pywsgi import WSGIServer
 
 import app.async_wrapper
 import app.cascade.database
-import app.settings
+from app import settings
 from app.cascade import attack, runner
 
 
@@ -34,17 +34,18 @@ def configure_flask_logger():
     flask_logger.addHandler(flask_ch)
     return flask_logger
 
+
 logger = logging.getLogger(__name__)
 url = None
 
-app = Flask('CASCADE', static_url_path='', static_folder='www')
+flask_app = Flask('CASCADE', static_url_path='', static_folder='www')
 WSGI_WEBSOCKET = "wsgi.websocket"
 
 
-@app.route("/", methods=['GET'])
+@flask_app.route("/", methods=['GET'])
 def main_page():
     """" The main entrypoint for the client side application. """
-    return app.send_static_file('index.html')
+    return flask_app.send_static_file('index.html')
 
 
 def connect_to_database():
@@ -61,7 +62,7 @@ def run_job_loop(debug=False):
 
 
 def run_server(debug=False):
-    global app
+    global flask_app
 
     config = settings.load()
     attack.attack_url = config['links']['attack']
@@ -81,8 +82,8 @@ def run_server(debug=False):
         ssl_context['certfile'] = https['certfile']
         ssl_context['keyfile'] = https['keyfile']
 
-    app.debug = debug
+    flask_app.debug = debug
 
     print('Running CASCADE via WSGIServer on {url}'.format(url=config['server']['url']))
-    wsgi = WSGIServer((interface, port), app, log=flask_logger, handler_class=WebSocketHandler, **ssl_context)
+    wsgi = WSGIServer((interface, port), flask_app, log=flask_logger, handler_class=WebSocketHandler, **ssl_context)
     wsgi.serve_forever()

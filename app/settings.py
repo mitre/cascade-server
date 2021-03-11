@@ -28,7 +28,7 @@ def load():
         return config
 
     with open('conf/cascade.yml', 'r') as f:
-        config = yaml.load(f.read())
+        config = yaml.safe_load(f.read())
 
     server_settings = config['server']
     proto = 'https' if server_settings['https']['enabled'] else 'http'
@@ -61,7 +61,7 @@ def setup(auto_defaults=False):
     placeholder = "<autogenerate>"
 
     with open('conf/defaults.yml', 'r') as f:
-        defaults = yaml.load(f.read())
+        defaults = yaml.safe_load(f.read())
 
     defaults['server']['hostname'] = socket.getfqdn().lower()
     if auto_defaults:

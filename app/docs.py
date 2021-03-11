@@ -13,10 +13,10 @@ import re
 from flask import Response
 import markdown
 
-from server import app
+from app.server import flask_app
 
 
-@app.route("/docs/<filebase>", methods=['GET'])
+@flask_app.route("/docs/<filebase>", methods=['GET'])
 def serve_document(filebase):
     if "\\" in filebase or "/" in filebase or "." in filebase:
         return Response(status=404)
