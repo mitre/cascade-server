@@ -159,7 +159,7 @@ def smb_file_write(network_event, ctx):
 
     """
     if network_event.state.proto_info is None:
-        raise StopIteration()
+        return
 
     if network_event.state.proto_info.startswith('SMB2 Write Request') and 'File: ' in network_event.state.proto_info:
         relative_path = network_event.state.proto_info.split('File: ').pop()
@@ -168,7 +168,7 @@ def smb_file_write(network_event, ctx):
 
         # Filter out writes to NamedPipes over SMB
         if not ('.' in relative_path or '\\' in relative_path):
-            raise StopIteration()
+            return
 
         wildcard_path = '*\\' + relative_path
         files = []
@@ -217,7 +217,7 @@ def remote_file_modify(file_event, ctx):
 
         # File accesses can also be notated as \\?\C:\Windows\...
         if host == '?':
-            raise StopIteration()
+            return
 
         # Confirm that the hostname isn't actually an IP address
         host_info = extract_host(host)
@@ -262,7 +262,7 @@ def schtasks(process_event, ctx):
         # now extract out the task to be run from the command line
         task_run = next_arg(args, "/tr")
         if task_run is None:
-            raise StopIteration()
+            return
 
         logger.debug("Pivoting onto scheduled task with command line {}".format(task_run))
 
@@ -284,7 +284,7 @@ def at(process_event, ctx):
         args = command_to_argv(process_event.state.command_line)
         lower_args = [_.lower() for _ in args]
         if len(args) == 1:
-            raise StopIteration()
+            return
 
         criteria = Criteria()  # parent_exe="taskeng.exe". This may not be true in windows 8
         if len(args) > 2 and args[1].startswith("\\\\"):
@@ -298,7 +298,7 @@ def at(process_event, ctx):
             criteria['hostname'] = process_event.state.hostname
 
         if lower_args[-1] in ('/delete', '/yes'):
-            raise StopIteration()
+            return
 
         # Get the case version of the command
         command = args[-1]
@@ -327,7 +327,7 @@ def wmic_process_create(process_event, ctx):
         lower_args = [_.lower() for _ in args]
 
         if not ("process" in lower_args and "call" in lower_args and "create" in lower_args):
-            raise StopIteration()
+            return
 
         criteria = Criteria(parent_image_path="C:\\Windows\\System32\\wbem\\WmiPrvSE.exe")
         for arg in args:
@@ -344,7 +344,7 @@ def wmic_process_create(process_event, ctx):
 
         wmic_command = next_arg(args, "create")
         if wmic_command is None:
-            raise StopIteration()
+            return
 
         # Get the case version of the command
         logger.debug("Pivoting onto WMIC command with command line {}".format(wmic_command))
@@ -378,7 +378,7 @@ def sc(process_event, ctx):
         # Get the case version of the command
         bin_path = next_arg(args, "binPath=")
         if bin_path is None:
-            raise StopIteration()
+            return
 
         logger.debug("Pivoting onto SC command with command line {}".format(bin_path))
         criteria['command_line'] = bin_path.replace("'", '"')
@@ -430,7 +430,7 @@ def cmd_copy(process_event, ctx):
             flags = ('/A', '/B', '/D', '/V', '/N', '/Y', '/-Y', '/Z', '/L')
             copy_args = [_ for _ in copy_args if _.upper() not in flags]
             if len(copy_args) != 2:
-                raise StopIteration()
+                return
 
             source_file, dest_file = copy_args
 

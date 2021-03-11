@@ -63,9 +63,9 @@ def async_routine(f):
     def async_wrapped_routine(*args, **kwargs):
         run_async = kwargs.pop('async', True)
         if enabled and run_async:
-            logger.debug('Spawning greenlet to run {}({}) asynchronously'.format(f.func_name, args))
+            logger.debug('Spawning greenlet to run {}({}) asynchronously'.format(f.__name__, args))
             return spawn(to_list, *args, **kwargs)
         else:
-            logger.debug('Asynchronous support disabled. Running {}({}) in a thread'.format(f.func_name, args))
+            logger.debug('Asynchronous support disabled. Running {}({}) in a thread'.format(f.__name__, args))
             to_list(*args, **kwargs)
     return async_wrapped_routine

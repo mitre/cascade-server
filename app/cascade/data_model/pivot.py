@@ -10,6 +10,7 @@
 
 import functools
 from collections import defaultdict, namedtuple
+from typing import Dict, List
 
 from app.cascade.data_model.event import DataModelEvent, DataModelEventMeta, LabeledLink
 

@@ -49,13 +49,13 @@ def file_execution(file_event, ctx=None):
         yield ProcessEvent.update_existing(action='create', **result)
 
 
-@pivot.register(FileEvent, ['create', 'write', 'modify'], ModuleEvent, ['load'])
-def file_loaded_as_module(file_event, ctx=None):
-    """
-    Pivots from a dropped file onto a DLL load event by any process.
-    """
-    raise StopIteration("Pivot is not defined")
-
+# @pivot.register(FileEvent, ['create', 'write', 'modify'], ModuleEvent, ['load'])
+# def file_loaded_as_module(file_event, ctx=None):
+#     """
+#     Pivots from a dropped file onto a DLL load event by any process.
+#     """
+#     raise NotImplementedError
+#
 
 @pivot.register(NetworkEvent, ["message"], NetworkEvent, ["start"], reverse=True)
 def group_messages(network_event, ctx=None):
@@ -301,7 +301,7 @@ def registry_key_run(registry_event, ctx=None):
     :type process_event: ProcessEvent
     """
     if not registry_event.state.data:
-        raise StopIteration
+        return
 
     data = registry_event.state.data
     window = {'start': registry_event.time - datetime.timedelta(minutes=2)}

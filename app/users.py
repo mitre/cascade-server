@@ -177,13 +177,13 @@ class User(Document, DataModelQueryLayer):
                 results = query_layer.query(expression, **kwargs)
                 for result in results:
                     yield result
-                raise StopIteration()
+                return
             except NotImplementedError:
                 continue
         else:
             # todo: run locally as a fallback??
-            logger.warn('No query layers for user {} support {}.'.format(self.username, expression))
-            raise StopIteration()
+            logger.warning('No query layers for user {} support {}.'.format(self.username, expression))
+            return
 
     @property
     def external_analytics(self):
@@ -193,7 +193,7 @@ class User(Document, DataModelQueryLayer):
             except NotImplementedError:
                 pass
         else:
-            raise StopIteration()
+            return
 
 
 def create_user(username, password, email=None, full_name=None):

@@ -92,7 +92,7 @@ class SessionStream(object):
 
         if not async_wrapper.enabled:
             # print('WARNING! Stream functionality will not work without gevent')
-            raise StopIteration()
+            return
 
         q = Queue()
         self.queues[self.count] = q

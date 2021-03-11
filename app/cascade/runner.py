@@ -49,7 +49,7 @@ def run(debug=False):
                 j.status = Job.SUCCESS
             except Exception as e:
                 traceback.print_exc()
-                j.message = "{}: {}".format(type(e).__name__, e.message if e.message else e)
+                j.message = "{}: {}".format(type(e).__name__, e.message if getattr(e, "message", None) else e)
                 j.status = Job.FAILURE
             finally:
                 j.save()
