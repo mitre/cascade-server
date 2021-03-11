@@ -1,0 +1,746 @@
+{
+  "mappings": {
+    "sysmon": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        }, 
+        "@uuid": {
+          "analyzer": "lowercase_only", 
+          "fields": {
+            "keyword": {
+              "ignore_above": 32766, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }, 
+        "@version": {
+          "type": "integer"
+        }, 
+        "Event": {
+          "properties": {
+            "xmlns": {
+              "type": "keyword"
+            }
+          }
+        }, 
+        "data_model": {
+          "properties": {
+            "action": {
+              "type": "keyword"
+            }, 
+            "fields": {
+              "properties": {
+                "command_line": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "current_directory": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }, 
+                    "posix_path": {
+                      "analyzer": "posix_path", 
+                      "type": "text"
+                    }, 
+                    "windows_path": {
+                      "analyzer": "windows_path", 
+                      "type": "text"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "dest_fqdn": {
+                  "analyzer": "hostname", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "dest_ip": {
+                  "type": "ip"
+                }, 
+                "dest_ipv6": {
+                  "type": "boolean"
+                }, 
+                "dest_port": {
+                  "type": "integer"
+                }, 
+                "dest_port_name": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "event_code": {
+                  "type": "integer"
+                }, 
+                "exe": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "fqdn": {
+                  "analyzer": "hostname", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "hash": {
+                  "properties": {
+                    "IMPHASH": {
+                      "analyzer": "lowercase_only", 
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }, 
+                    "MD5": {
+                      "analyzer": "lowercase_only", 
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }, 
+                    "SHA1": {
+                      "analyzer": "lowercase_only", 
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }, 
+                    "SHA256": {
+                      "analyzer": "lowercase_only", 
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }
+                  }
+                }, 
+                "hostname": {
+                  "analyzer": "hostname", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "image_path": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }, 
+                    "posix_path": {
+                      "analyzer": "posix_path", 
+                      "type": "text"
+                    }, 
+                    "windows_path": {
+                      "analyzer": "windows_path", 
+                      "type": "text"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "initiated": {
+                  "type": "boolean"
+                }, 
+                "integrity_level": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "keywords": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "log_name": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "log_type": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "logon_guid": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "logon_id": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "op_code": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "parent_command_line": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "parent_current_directory": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }, 
+                    "posix_path": {
+                      "analyzer": "posix_path", 
+                      "type": "text"
+                    }, 
+                    "windows_path": {
+                      "analyzer": "windows_path", 
+                      "type": "text"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "parent_exe": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "parent_image_path": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }, 
+                    "posix_path": {
+                      "analyzer": "posix_path", 
+                      "type": "text"
+                    }, 
+                    "windows_path": {
+                      "analyzer": "windows_path", 
+                      "type": "text"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "parent_process_guid": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "pid": {
+                  "type": "integer"
+                }, 
+                "ppid": {
+                    "type": "integer"
+                  }, 
+                "process_guid": {
+                  "analyzer": "lowercase_only", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "record_number": {
+                  "type": "integer"
+                }, 
+                "severity": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "src_fqdn": {
+                  "analyzer": "hostname", 
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "src_ip": {
+                  "type": "ip"
+                }, 
+                "src_ipv6": {
+                  "type": "boolean"
+                }, 
+                "src_port": {
+                  "type": "integer"
+                }, 
+                "src_port_name": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "terminal_session_id": {
+                   "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                  }, 
+                  "transport": {
+                    "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                  }, 
+                "user": {
+                  "analyzer": "lowercase_only",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 32766, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "creation_utc_time": {
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||basic_date_time||basic_date_time_no_millis||date_hour_minute_second||date_hour_minute_second_fraction||date_time"
+                }, 
+                "previous_creation_utc_time": {
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||basic_date_time||basic_date_time_no_millis||date_hour_minute_second||date_hour_minute_second_fraction||date_time"
+                }, 
+                "utc_time": {
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||basic_date_time||basic_date_time_no_millis||date_hour_minute_second||date_hour_minute_second_fraction||date_time"
+                }, 
+                "uuid": {
+                  "analyzer": "lowercase_only",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }
+              }
+            }, 
+            "object": {
+              "analyzer": "lowercase_only",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256, 
+                  "type": "keyword"
+                }
+              }, 
+              "type": "text"
+            }
+          }
+        }, 
+        "fields": {
+          "properties": {
+            "EventData": {
+              "properties": {
+                "Image": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "ProcessGuid": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "ProcessId": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "UtcTime": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }
+              }
+            }, 
+            "System": {
+              "properties": {
+                "Channel": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "Computer": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "Correlation": {
+                  "type": "object"
+                }, 
+                "EventID": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "EventRecordID": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "Execution": {
+                  "properties": {
+                    "ProcessID": {
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }, 
+                    "ThreadID": {
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }
+                  }
+                }, 
+                "Keywords": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "Level": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "Opcode": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "Provider": {
+                  "properties": {
+                    "Guid": {
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }, 
+                    "Name": {
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }
+                  }
+                }, 
+                "Security": {
+                  "properties": {
+                    "UserID": {
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256, 
+                          "type": "keyword"
+                        }
+                      }, 
+                      "type": "text"
+                    }
+                  }
+                }, 
+                "Task": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }, 
+                "TimeCreated": {
+                  "properties": {
+                    "SystemTime": {
+                      "type": "date"
+                    }
+                  }
+                }, 
+                "Version": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256, 
+                      "type": "keyword"
+                    }
+                  }, 
+                  "type": "text"
+                }
+              }
+            }
+          }
+        }, 
+        "game_id": {
+          "analyzer":"lowercase_only",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }, 
+        "host": {
+          "analyzer": "hostname",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }, 
+        "index": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }, 
+        "port": {
+          "type": "long"
+        }, 
+        "raw": {
+          "analyzer": "lowercase_only",
+          "fields": {
+            "keyword": {
+              "ignore_above": 32766, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }, 
+        "tags": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }, 
+        "type": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256, 
+              "type": "keyword"
+            }
+          }, 
+          "type": "text"
+        }
+      }
+    }
+  }, 
+  "order": 50, 
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "hostname": {
+          "filter": [
+            "lowercase"
+          ], 
+          "tokenizer": "my_domain_name_tokenizer", 
+          "type": "custom"
+        }, 
+        "lowercase_only": {
+          "filter": [
+            "lowercase"
+          ], 
+          "tokenizer": "keyword", 
+          "type": "custom"
+        }, 
+        "posix_path": {
+          "tokenizer": "posix_path_tokenizer", 
+          "type": "custom"
+        }, 
+        "windows_path": {
+          "filter": [
+            "lowercase"
+          ], 
+          "tokenizer": "windows_path_tokenizer", 
+          "type": "custom"
+        }
+      }, 
+      "tokenizer": {
+        "my_domain_name_tokenizer": {
+          "delimiter": ".", 
+          "type": "path_hierarchy"
+        }, 
+        "posix_path_tokenizer": {
+          "delimiter": "/", 
+          "type": "path_hierarchy"
+        }, 
+        "windows_path_tokenizer": {
+          "delimiter": "\\", 
+          "type": "path_hierarchy"
+        }
+      }
+    }
+  }, 
+  "template": "sysmon"
+}
+
