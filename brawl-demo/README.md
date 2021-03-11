@@ -45,7 +45,7 @@ populate the form with dummy values:
 ![create-account](screenshots/02.png)
 
 
-Next, use your new credentials, to log into the account:
+Next, use your new credentials, to log into the account.
 
 ## Configuring Cascade
 
@@ -166,7 +166,7 @@ set (things are rarely this easy with real data).
 
 ## Running Second-Pass Analytics
 
-While the previous stepped, pulled in lots of interesting
+While the previous step, pulled in lots of interesting
 events, we can further enrich them by running 'Second Pass' queries.
 While 'First Pass' queries originate their investigation by
 searching over external data, 'Second Pass' queries look at
@@ -211,4 +211,4 @@ To stop and reset the demo run:
 
 ```shell
 docker-compose down -v
-``
+```
