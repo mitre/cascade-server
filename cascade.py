@@ -15,7 +15,7 @@ import argparse
 import getpass
 import logging
 
-import app.async
+import app
 
 parent_logger = logging.getLogger("app")
 

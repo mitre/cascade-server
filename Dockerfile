@@ -1,4 +1,4 @@
-FROM python:2
+FROM python:3
 
 RUN mkdir -p /opt/cascade-server
 WORKDIR /opt/cascade-server

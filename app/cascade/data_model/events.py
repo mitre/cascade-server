@@ -8,8 +8,9 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from .event import DataModelEvent, event_lookup
 import datetime
+
+from app.cascade.data_model.event import DataModelEvent, event_lookup
 
 
 class ApiEvent(DataModelEvent):

@@ -8,12 +8,14 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from ..data_model.query import QueryTerm, Operation
-from ..data_model.event import DataModelQuery
-from ..analytics import CascadeAnalytic, AnalyticReference
-from ..data_model.parser import lift_query
 import logging
+
 from mongoengine import Document, StringField, ReferenceField, EmbeddedDocument
+
+from app.cascade.data_model.query import QueryTerm, Operation
+from app.cascade.data_model.event import DataModelQuery
+from app.cascade.analytics import CascadeAnalytic, AnalyticReference
+from app.cascade.data_model.parser import lift_query
 
 logger = logging.getLogger(__name__)
 

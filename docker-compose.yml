@@ -6,6 +6,8 @@ volumes:
 services:
   mongodb:
     image: mongo:4.0
+    ports:
+      - "127.0.0.1:27017:27017"
     volumes:
       - mongo_data:/data
 
@@ -16,14 +18,14 @@ services:
         - "http_proxy:${http_proxy}"
         - "https_proxy:${https_proxy}"
         - "no_proxy:${no_proxy}"
+    image: "cascade:latest"
     volumes:
       - cascade_conf:/opt/cascade-server/conf
     ports:
       - "5000:5000"
 
   cascade_jobs:
-    build:
-      context: .
+    image: "cascade:latest"
     volumes:
       - cascade_conf:/opt/cascade-server/conf
     depends_on:

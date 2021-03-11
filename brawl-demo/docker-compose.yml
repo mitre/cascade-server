@@ -1,0 +1,61 @@
+---
+version: "2"
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.10
+    environment:
+      - cluster.name=docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
+    ports:
+      - "127.0.0.1:9200:9200"
+
+  logstash:
+    build:
+      context: ./logstash
+      dockerfile: ./Dockerfile
+    environment:
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.watcher.enabled=false
+
+  mongodb:
+    image: mongo
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo_data:/data
+
+  cascade_web:
+    build:
+      context: ..
+      args:
+        - "http_proxy:${http_proxy}"
+        - "https_proxy:${https_proxy}"
+        - "no_proxy:${no_proxy}"
+    image: "cascade:latest"
+    volumes:
+      - cascade_conf:/opt/cascade-server/conf
+    ports:
+      - "127.0.0.1:5000:5000"
+
+  cascade_jobs:
+    image: "cascade:latest"
+#    build:
+#      context: .
+    volumes:
+      - cascade_conf:/opt/cascade-server/conf
+    depends_on:
+      - cascade_web
+      - mongodb
+    command: python cascade.py -vv --jobs
+
+volumes:
+  mongo_data: {}
+  cascade_conf: {}

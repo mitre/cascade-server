@@ -8,11 +8,12 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-import traceback
-import logging
 import datetime
-from .. import async
-from .jobs import Job
+import logging
+import traceback
+
+from app import async_wrapper
+from app.cascade.jobs import Job
 
 
 logger = logging.getLogger(__name__)
@@ -34,7 +35,7 @@ def run(debug=False):
         else:
             return False
 
-        @async.async_routine
+        @async_wrapper.async_routine
         def async_handle_job(j):
             global running_jobs
 
@@ -48,7 +49,7 @@ def run(debug=False):
                 j.status = Job.SUCCESS
             except Exception as e:
                 traceback.print_exc()
-                j.message = "{}: {}".format(type(e).__name__, e.message if e.message else e)
+                j.message = "{}: {}".format(type(e).__name__, e.message if getattr(e, "message", None) else e)
                 j.status = Job.FAILURE
             finally:
                 j.save()
@@ -75,7 +76,7 @@ def run(debug=False):
     while True:
         if worker():
             logger.info("Completed all jobs. Waiting for new jobs to be submitted...")
-        async.sleep(query_frequency)
+        async_wrapper.sleep(query_frequency)
 
 
 

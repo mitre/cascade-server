@@ -8,12 +8,13 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from ..data_model.query import FieldQuery, FieldComparison, FieldComparators, Operation, QueryTerm, QueryComparators
-from ..data_model.event import DataModelEvent, DataModelQuery
-from .base import DataModelQueryLayer
-from ..analytics import AnalyticReference, CascadeAnalytic, ExternalAnalytic
 import datetime
 import re
+
+from app.cascade.data_model.query import FieldQuery, FieldComparison, FieldComparators, Operation, QueryTerm, QueryComparators
+from app.cascade.data_model.event import DataModelEvent, DataModelQuery
+from app.cascade.query_layers.base import DataModelQueryLayer
+from app.cascade.analytics import AnalyticReference, CascadeAnalytic, ExternalAnalytic
 
 
 class MongoQuery(dict):

@@ -8,9 +8,11 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from .event import DataModelEvent, DataModelEventMeta, LabeledLink
-from collections import defaultdict, namedtuple
 import functools
+from collections import defaultdict, namedtuple
+from typing import Dict, List
+
+from app.cascade.data_model.event import DataModelEvent, DataModelEventMeta, LabeledLink
 
 
 PivotInfo = namedtuple('PivotInfo', ['name', 'func', 'reverse', 'depends', 'abstract', 'inverse',

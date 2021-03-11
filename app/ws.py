@@ -8,12 +8,13 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from server import app, WSGI_WEBSOCKET
-from cascade.session import Session
 from flask import request
 
+from app.server import flask_app, WSGI_WEBSOCKET
+from app.cascade.session import Session
 
-@app.route('/api/ws/session/<session_id>', methods=['GET', 'POST'])
+
+@flask_app.route('/api/ws/session/<session_id>', methods=['GET', 'POST'])
 def session_stream(session_id):
     """
     Session specific notification stream
