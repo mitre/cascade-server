@@ -8,10 +8,10 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from . import base
-from . import splunk
-from . import elastic
-from . import mongo
+from app.cascade.query_layers import base
+from app.cascade.query_layers import splunk
+from app.cascade.query_layers import elastic
+from app.cascade.query_layers import mongo
 
 from .base import DataModelQueryLayer, DatabaseInfo, CascadeQueryLayer, UserDatabaseInfo
 

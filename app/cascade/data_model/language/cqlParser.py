@@ -1,48 +1,52 @@
-# Generated from C:/Users/.../cascade-server/app/cascade/data_model/language\cql.g4 by ANTLR 4.6
+# Generated from cql.g4 by ANTLR 4.9.1
 # encoding: utf-8
-from __future__ import print_function
 from antlr4 import *
 from io import StringIO
+import sys
+if sys.version_info[1] > 5:
+	from typing import TextIO
+else:
+	from typing.io import TextIO
+
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write(u"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3")
-        buf.write(u"\32v\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
-        buf.write(u"\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4")
-        buf.write(u"\16\t\16\4\17\t\17\3\2\3\2\3\3\3\3\3\4\3\4\5\4%\n\4\3")
-        buf.write(u"\5\3\5\5\5)\n\5\3\6\3\6\3\7\3\7\3\7\7\7\60\n\7\f\7\16")
-        buf.write(u"\7\63\13\7\3\7\5\7\66\n\7\3\7\3\7\3\b\3\b\3\b\3\t\3\t")
-        buf.write(u"\3\t\3\t\3\t\3\n\3\n\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3")
-        buf.write(u"\f\3\f\3\f\3\f\5\fO\n\f\3\r\3\r\3\16\3\16\3\17\3\17\3")
-        buf.write(u"\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17")
-        buf.write(u"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\5\17i\n\17\3\17\3")
-        buf.write(u"\17\3\17\3\17\3\17\3\17\7\17q\n\17\f\17\16\17t\13\17")
-        buf.write(u"\3\17\2\3\34\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2")
-        buf.write(u"\3\3\2\16\23s\2\36\3\2\2\2\4 \3\2\2\2\6$\3\2\2\2\b(\3")
-        buf.write(u"\2\2\2\n*\3\2\2\2\f,\3\2\2\2\169\3\2\2\2\20<\3\2\2\2")
-        buf.write(u"\22A\3\2\2\2\24C\3\2\2\2\26N\3\2\2\2\30P\3\2\2\2\32R")
-        buf.write(u"\3\2\2\2\34h\3\2\2\2\36\37\7\26\2\2\37\3\3\2\2\2 !\7")
-        buf.write(u"\25\2\2!\5\3\2\2\2\"%\5\2\2\2#%\5\4\3\2$\"\3\2\2\2$#")
-        buf.write(u"\3\2\2\2%\7\3\2\2\2&)\5\32\16\2\')\5\6\4\2(&\3\2\2\2")
-        buf.write(u"(\'\3\2\2\2)\t\3\2\2\2*+\7\27\2\2+\13\3\2\2\2,\61\5\16")
-        buf.write(u"\b\2-.\7\3\2\2.\60\5\16\b\2/-\3\2\2\2\60\63\3\2\2\2\61")
-        buf.write(u"/\3\2\2\2\61\62\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\64")
-        buf.write(u"\66\7\3\2\2\65\64\3\2\2\2\65\66\3\2\2\2\66\67\3\2\2\2")
-        buf.write(u"\678\7\2\2\38\r\3\2\2\29:\7\b\2\2:;\5\34\17\2;\17\3\2")
-        buf.write(u"\2\2<=\5\22\n\2=>\5\24\13\2>?\7\t\2\2?@\5\34\17\2@\21")
-        buf.write(u"\3\2\2\2AB\7\27\2\2B\23\3\2\2\2CD\7\27\2\2D\25\3\2\2")
-        buf.write(u"\2EF\7\n\2\2FG\7\4\2\2GH\7\30\2\2HO\7\5\2\2IJ\7\n\2\2")
-        buf.write(u"JK\7\4\2\2KL\5\32\16\2LM\7\5\2\2MO\3\2\2\2NE\3\2\2\2")
-        buf.write(u"NI\3\2\2\2O\27\3\2\2\2PQ\t\2\2\2Q\31\3\2\2\2RS\7\24\2")
-        buf.write(u"\2S\33\3\2\2\2TU\b\17\1\2UV\7\4\2\2VW\5\34\17\2WX\7\5")
-        buf.write(u"\2\2Xi\3\2\2\2YZ\5\n\6\2Z[\5\30\r\2[\\\5\b\5\2\\i\3\2")
-        buf.write(u"\2\2]^\7\6\2\2^_\7\4\2\2_`\5\n\6\2`a\7\7\2\2ab\5\b\5")
-        buf.write(u"\2bc\7\5\2\2ci\3\2\2\2di\5\26\f\2ef\7\r\2\2fi\5\34\17")
-        buf.write(u"\6gi\5\20\t\2hT\3\2\2\2hY\3\2\2\2h]\3\2\2\2hd\3\2\2\2")
-        buf.write(u"he\3\2\2\2hg\3\2\2\2ir\3\2\2\2jk\f\5\2\2kl\7\13\2\2l")
-        buf.write(u"q\5\34\17\6mn\f\4\2\2no\7\f\2\2oq\5\34\17\5pj\3\2\2\2")
-        buf.write(u"pm\3\2\2\2qt\3\2\2\2rp\3\2\2\2rs\3\2\2\2s\35\3\2\2\2")
-        buf.write(u"tr\3\2\2\2\n$(\61\65Nhpr")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32")
+        buf.write("v\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
+        buf.write("\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t")
+        buf.write("\16\4\17\t\17\3\2\3\2\3\3\3\3\3\4\3\4\5\4%\n\4\3\5\3\5")
+        buf.write("\5\5)\n\5\3\6\3\6\3\7\3\7\3\7\7\7\60\n\7\f\7\16\7\63\13")
+        buf.write("\7\3\7\5\7\66\n\7\3\7\3\7\3\b\3\b\3\b\3\t\3\t\3\t\3\t")
+        buf.write("\3\t\3\n\3\n\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f")
+        buf.write("\3\f\5\fO\n\f\3\r\3\r\3\16\3\16\3\17\3\17\3\17\3\17\3")
+        buf.write("\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17")
+        buf.write("\3\17\3\17\3\17\3\17\3\17\5\17i\n\17\3\17\3\17\3\17\3")
+        buf.write("\17\3\17\3\17\7\17q\n\17\f\17\16\17t\13\17\3\17\2\3\34")
+        buf.write("\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\3\3\2\16\23")
+        buf.write("\2s\2\36\3\2\2\2\4 \3\2\2\2\6$\3\2\2\2\b(\3\2\2\2\n*\3")
+        buf.write("\2\2\2\f,\3\2\2\2\169\3\2\2\2\20<\3\2\2\2\22A\3\2\2\2")
+        buf.write("\24C\3\2\2\2\26N\3\2\2\2\30P\3\2\2\2\32R\3\2\2\2\34h\3")
+        buf.write("\2\2\2\36\37\7\26\2\2\37\3\3\2\2\2 !\7\25\2\2!\5\3\2\2")
+        buf.write("\2\"%\5\2\2\2#%\5\4\3\2$\"\3\2\2\2$#\3\2\2\2%\7\3\2\2")
+        buf.write("\2&)\5\32\16\2\')\5\6\4\2(&\3\2\2\2(\'\3\2\2\2)\t\3\2")
+        buf.write("\2\2*+\7\27\2\2+\13\3\2\2\2,\61\5\16\b\2-.\7\3\2\2.\60")
+        buf.write("\5\16\b\2/-\3\2\2\2\60\63\3\2\2\2\61/\3\2\2\2\61\62\3")
+        buf.write("\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\64\66\7\3\2\2\65\64")
+        buf.write("\3\2\2\2\65\66\3\2\2\2\66\67\3\2\2\2\678\7\2\2\38\r\3")
+        buf.write("\2\2\29:\7\b\2\2:;\5\34\17\2;\17\3\2\2\2<=\5\22\n\2=>")
+        buf.write("\5\24\13\2>?\7\t\2\2?@\5\34\17\2@\21\3\2\2\2AB\7\27\2")
+        buf.write("\2B\23\3\2\2\2CD\7\27\2\2D\25\3\2\2\2EF\7\n\2\2FG\7\4")
+        buf.write("\2\2GH\7\30\2\2HO\7\5\2\2IJ\7\n\2\2JK\7\4\2\2KL\5\32\16")
+        buf.write("\2LM\7\5\2\2MO\3\2\2\2NE\3\2\2\2NI\3\2\2\2O\27\3\2\2\2")
+        buf.write("PQ\t\2\2\2Q\31\3\2\2\2RS\7\24\2\2S\33\3\2\2\2TU\b\17\1")
+        buf.write("\2UV\7\4\2\2VW\5\34\17\2WX\7\5\2\2Xi\3\2\2\2YZ\5\n\6\2")
+        buf.write("Z[\5\30\r\2[\\\5\b\5\2\\i\3\2\2\2]^\7\6\2\2^_\7\4\2\2")
+        buf.write("_`\5\n\6\2`a\7\7\2\2ab\5\b\5\2bc\7\5\2\2ci\3\2\2\2di\5")
+        buf.write("\26\f\2ef\7\r\2\2fi\5\34\17\6gi\5\20\t\2hT\3\2\2\2hY\3")
+        buf.write("\2\2\2h]\3\2\2\2hd\3\2\2\2he\3\2\2\2hg\3\2\2\2ir\3\2\2")
+        buf.write("\2jk\f\5\2\2kl\7\13\2\2lq\5\34\17\6mn\f\4\2\2no\7\f\2")
+        buf.write("\2oq\5\34\17\5pj\3\2\2\2pm\3\2\2\2qt\3\2\2\2rp\3\2\2\2")
+        buf.write("rs\3\2\2\2s\35\3\2\2\2tr\3\2\2\2\n$(\61\65Nhpr")
         return buf.getvalue()
 
 
@@ -56,16 +60,16 @@ class cqlParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ u"<INVALID>", u"';'", u"'('", u"')'", u"'match'", u"','", 
-                     u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
-                     u"<INVALID>", u"<INVALID>", u"'=='", u"'!='", u"'<'", 
-                     u"'<='", u"'>'", u"'>='" ]
+    literalNames = [ "<INVALID>", "';'", "'('", "')'", "'match'", "','", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "'=='", "'!='", "'<'", "'<='", 
+                     "'>'", "'>='" ]
 
-    symbolicNames = [ u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
-                      u"<INVALID>", u"<INVALID>", u"SEARCH", u"WHERE", u"ANALYTIC", 
-                      u"AND", u"OR", u"NOT", u"EQ", u"NE", u"LT", u"LE", 
-                      u"GT", u"GE", u"STRING", u"INT", u"FLOAT", u"ID", 
-                      u"ANALYTIC_ID", u"COMMENT", u"WS" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                      "<INVALID>", "<INVALID>", "SEARCH", "WHERE", "ANALYTIC", 
+                      "AND", "OR", "NOT", "EQ", "NE", "LT", "LE", "GT", 
+                      "GE", "STRING", "INT", "FLOAT", "ID", "ANALYTIC_ID", 
+                      "COMMENT", "WS" ]
 
     RULE_floatValue = 0
     RULE_intValue = 1
@@ -82,10 +86,10 @@ class cqlParser ( Parser ):
     RULE_string = 12
     RULE_query = 13
 
-    ruleNames =  [ u"floatValue", u"intValue", u"number", u"value", u"field", 
-                   u"allQueries", u"searchQuery", u"dataModelQuery", u"eventObject", 
-                   u"eventAction", u"analyticReference", u"valueComparator", 
-                   u"string", u"query" ]
+    ruleNames =  [ "floatValue", "intValue", "number", "value", "field", 
+                   "allQueries", "searchQuery", "dataModelQuery", "eventObject", 
+                   "eventAction", "analyticReference", "valueComparator", 
+                   "string", "query" ]
 
     EOF = Token.EOF
     T__0=1
@@ -113,18 +117,20 @@ class cqlParser ( Parser ):
     COMMENT=23
     WS=24
 
-    def __init__(self, input):
-        super(cqlParser, self).__init__(input)
-        self.checkVersion("4.6")
+    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+        super().__init__(input, output)
+        self.checkVersion("4.9.1")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
 
 
-    class FloatValueContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.FloatValueContext, self).__init__(parent, invokingState)
+    class FloatValueContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def FLOAT(self):
@@ -133,19 +139,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_floatValue
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterFloatValue"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFloatValue" ):
                 listener.enterFloatValue(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitFloatValue"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFloatValue" ):
                 listener.exitFloatValue(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitFloatValue"):
-                return visitor.visitFloatValue(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -166,10 +166,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class IntValueContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.IntValueContext, self).__init__(parent, invokingState)
+    class IntValueContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def INT(self):
@@ -178,19 +180,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_intValue
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterIntValue"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIntValue" ):
                 listener.enterIntValue(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitIntValue"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIntValue" ):
                 listener.exitIntValue(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitIntValue"):
-                return visitor.visitIntValue(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -211,10 +207,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class NumberContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.NumberContext, self).__init__(parent, invokingState)
+    class NumberContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def floatValue(self):
@@ -228,19 +226,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_number
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterNumber"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNumber" ):
                 listener.enterNumber(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitNumber"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNumber" ):
                 listener.exitNumber(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitNumber"):
-                return visitor.visitNumber(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -274,10 +266,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ValueContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.ValueContext, self).__init__(parent, invokingState)
+    class ValueContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def string(self):
@@ -291,19 +285,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_value
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterValue"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterValue" ):
                 listener.enterValue(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitValue"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitValue" ):
                 listener.exitValue(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitValue"):
-                return visitor.visitValue(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -337,10 +325,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class FieldContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.FieldContext, self).__init__(parent, invokingState)
+    class FieldContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def ID(self):
@@ -349,19 +339,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_field
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterField"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterField" ):
                 listener.enterField(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitField"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitField" ):
                 listener.exitField(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitField"):
-                return visitor.visitField(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -382,13 +366,15 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class AllQueriesContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.AllQueriesContext, self).__init__(parent, invokingState)
+    class AllQueriesContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
-        def searchQuery(self, i=None):
+        def searchQuery(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(cqlParser.SearchQueryContext)
             else:
@@ -401,19 +387,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_allQueries
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterAllQueries"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAllQueries" ):
                 listener.enterAllQueries(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitAllQueries"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAllQueries" ):
                 listener.exitAllQueries(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitAllQueries"):
-                return visitor.visitAllQueries(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -458,10 +438,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class SearchQueryContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.SearchQueryContext, self).__init__(parent, invokingState)
+    class SearchQueryContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def SEARCH(self):
@@ -474,19 +456,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_searchQuery
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterSearchQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSearchQuery" ):
                 listener.enterSearchQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitSearchQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSearchQuery" ):
                 listener.exitSearchQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitSearchQuery"):
-                return visitor.visitSearchQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -509,10 +485,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class DataModelQueryContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.DataModelQueryContext, self).__init__(parent, invokingState)
+    class DataModelQueryContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def eventObject(self):
@@ -533,19 +511,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_dataModelQuery
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterDataModelQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterDataModelQuery" ):
                 listener.enterDataModelQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitDataModelQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitDataModelQuery" ):
                 listener.exitDataModelQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitDataModelQuery"):
-                return visitor.visitDataModelQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -572,10 +544,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class EventObjectContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.EventObjectContext, self).__init__(parent, invokingState)
+    class EventObjectContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def ID(self):
@@ -584,19 +558,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_eventObject
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterEventObject"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterEventObject" ):
                 listener.enterEventObject(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitEventObject"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitEventObject" ):
                 listener.exitEventObject(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitEventObject"):
-                return visitor.visitEventObject(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -617,10 +585,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class EventActionContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.EventActionContext, self).__init__(parent, invokingState)
+    class EventActionContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def ID(self):
@@ -629,19 +599,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_eventAction
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterEventAction"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterEventAction" ):
                 listener.enterEventAction(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitEventAction"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitEventAction" ):
                 listener.exitEventAction(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitEventAction"):
-                return visitor.visitEventAction(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -662,10 +626,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class AnalyticReferenceContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.AnalyticReferenceContext, self).__init__(parent, invokingState)
+    class AnalyticReferenceContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
 
@@ -673,15 +639,15 @@ class cqlParser ( Parser ):
             return cqlParser.RULE_analyticReference
 
      
-        def copyFrom(self, ctx):
-            super(cqlParser.AnalyticReferenceContext, self).copyFrom(ctx)
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
 
 
 
     class AnalyticReferenceByIDContext(AnalyticReferenceContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.AnalyticReferenceContext)
-            super(cqlParser.AnalyticReferenceByIDContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.AnalyticReferenceContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def ANALYTIC(self):
@@ -689,25 +655,19 @@ class cqlParser ( Parser ):
         def ANALYTIC_ID(self):
             return self.getToken(cqlParser.ANALYTIC_ID, 0)
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterAnalyticReferenceByID"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAnalyticReferenceByID" ):
                 listener.enterAnalyticReferenceByID(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitAnalyticReferenceByID"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAnalyticReferenceByID" ):
                 listener.exitAnalyticReferenceByID(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitAnalyticReferenceByID"):
-                return visitor.visitAnalyticReferenceByID(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class AnalyticReferenceByNameContext(AnalyticReferenceContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.AnalyticReferenceContext)
-            super(cqlParser.AnalyticReferenceByNameContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.AnalyticReferenceContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def ANALYTIC(self):
@@ -716,19 +676,13 @@ class cqlParser ( Parser ):
             return self.getTypedRuleContext(cqlParser.StringContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterAnalyticReferenceByName"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAnalyticReferenceByName" ):
                 listener.enterAnalyticReferenceByName(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitAnalyticReferenceByName"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAnalyticReferenceByName" ):
                 listener.exitAnalyticReferenceByName(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitAnalyticReferenceByName"):
-                return visitor.visitAnalyticReferenceByName(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -775,10 +729,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ValueComparatorContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.ValueComparatorContext, self).__init__(parent, invokingState)
+    class ValueComparatorContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def EQ(self):
@@ -802,19 +758,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_valueComparator
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterValueComparator"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterValueComparator" ):
                 listener.enterValueComparator(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitValueComparator"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitValueComparator" ):
                 listener.exitValueComparator(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitValueComparator"):
-                return visitor.visitValueComparator(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -841,10 +791,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class StringContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.StringContext, self).__init__(parent, invokingState)
+    class StringContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
         def STRING(self):
@@ -853,19 +805,13 @@ class cqlParser ( Parser ):
         def getRuleIndex(self):
             return cqlParser.RULE_string
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterString"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterString" ):
                 listener.enterString(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitString"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitString" ):
                 listener.exitString(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitString"):
-                return visitor.visitString(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -886,10 +832,12 @@ class cqlParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class QueryContext(ParserRuleContext):
 
-        def __init__(self, parser, parent=None, invokingState=-1):
-            super(cqlParser.QueryContext, self).__init__(parent, invokingState)
+    class QueryContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
             self.parser = parser
 
 
@@ -897,42 +845,36 @@ class cqlParser ( Parser ):
             return cqlParser.RULE_query
 
      
-        def copyFrom(self, ctx):
-            super(cqlParser.QueryContext, self).copyFrom(ctx)
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
 
 
     class AnalyticReferenceQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.AnalyticReferenceQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def analyticReference(self):
             return self.getTypedRuleContext(cqlParser.AnalyticReferenceContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterAnalyticReferenceQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAnalyticReferenceQuery" ):
                 listener.enterAnalyticReferenceQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitAnalyticReferenceQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAnalyticReferenceQuery" ):
                 listener.exitAnalyticReferenceQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitAnalyticReferenceQuery"):
-                return visitor.visitAnalyticReferenceQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class OrQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.OrQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
-        def query(self, i=None):
+        def query(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(cqlParser.QueryContext)
             else:
@@ -941,50 +883,38 @@ class cqlParser ( Parser ):
         def OR(self):
             return self.getToken(cqlParser.OR, 0)
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterOrQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterOrQuery" ):
                 listener.enterOrQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitOrQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitOrQuery" ):
                 listener.exitOrQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitOrQuery"):
-                return visitor.visitOrQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class NestedDataModelQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.NestedDataModelQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def dataModelQuery(self):
             return self.getTypedRuleContext(cqlParser.DataModelQueryContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterNestedDataModelQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNestedDataModelQuery" ):
                 listener.enterNestedDataModelQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitNestedDataModelQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNestedDataModelQuery" ):
                 listener.exitNestedDataModelQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitNestedDataModelQuery"):
-                return visitor.visitNestedDataModelQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class NotQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.NotQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def NOT(self):
@@ -993,50 +923,38 @@ class cqlParser ( Parser ):
             return self.getTypedRuleContext(cqlParser.QueryContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterNotQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNotQuery" ):
                 listener.enterNotQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitNotQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNotQuery" ):
                 listener.exitNotQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitNotQuery"):
-                return visitor.visitNotQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class ScopedQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.ScopedQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def query(self):
             return self.getTypedRuleContext(cqlParser.QueryContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterScopedQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterScopedQuery" ):
                 listener.enterScopedQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitScopedQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitScopedQuery" ):
                 listener.exitScopedQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitScopedQuery"):
-                return visitor.visitScopedQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class ValueComparatorQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.ValueComparatorQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def field(self):
@@ -1049,28 +967,22 @@ class cqlParser ( Parser ):
             return self.getTypedRuleContext(cqlParser.ValueContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterValueComparatorQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterValueComparatorQuery" ):
                 listener.enterValueComparatorQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitValueComparatorQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitValueComparatorQuery" ):
                 listener.exitValueComparatorQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitValueComparatorQuery"):
-                return visitor.visitValueComparatorQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class AndQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.AndQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
-        def query(self, i=None):
+        def query(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(cqlParser.QueryContext)
             else:
@@ -1079,25 +991,19 @@ class cqlParser ( Parser ):
         def AND(self):
             return self.getToken(cqlParser.AND, 0)
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterAndQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAndQuery" ):
                 listener.enterAndQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitAndQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAndQuery" ):
                 listener.exitAndQuery(self)
-
-        def accept(self, visitor):
-            if hasattr(visitor, "visitAndQuery"):
-                return visitor.visitAndQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
     class RegExQueryContext(QueryContext):
 
-        def __init__(self, parser, ctx): # actually a cqlParser.QueryContext)
-            super(cqlParser.RegExQueryContext, self).__init__(parser)
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a cqlParser.QueryContext
+            super().__init__(parser)
             self.copyFrom(ctx)
 
         def field(self):
@@ -1107,23 +1013,17 @@ class cqlParser ( Parser ):
             return self.getTypedRuleContext(cqlParser.ValueContext,0)
 
 
-        def enterRule(self, listener):
-            if hasattr(listener, "enterRegExQuery"):
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterRegExQuery" ):
                 listener.enterRegExQuery(self)
 
-        def exitRule(self, listener):
-            if hasattr(listener, "exitRegExQuery"):
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitRegExQuery" ):
                 listener.exitRegExQuery(self)
 
-        def accept(self, visitor):
-            if hasattr(visitor, "visitRegExQuery"):
-                return visitor.visitRegExQuery(self)
-            else:
-                return visitor.visitChildren(self)
 
 
-
-    def query(self, _p=0):
+    def query(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = cqlParser.QueryContext(self, self._ctx, _parentState)
@@ -1258,7 +1158,7 @@ class cqlParser ( Parser ):
 
 
 
-    def sempred(self, localctx, ruleIndex, predIndex):
+    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
         if self._predicates == None:
             self._predicates = dict()
         self._predicates[13] = self.query_sempred
@@ -1268,7 +1168,7 @@ class cqlParser ( Parser ):
         else:
             return pred(localctx, predIndex)
 
-    def query_sempred(self, localctx, predIndex):
+    def query_sempred(self, localctx:QueryContext, predIndex:int):
             if predIndex == 0:
                 return self.precpred(self._ctx, 3)
          

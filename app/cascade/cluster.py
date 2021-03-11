@@ -8,11 +8,13 @@
 #
 # (C) 2017 The MITRE Corporation.
 
+import logging
+from collections import defaultdict
+
 from mongoengine.fields import EmbeddedDocumentField, StringField, DictField, ListField, BooleanField, IntField
 from mongoengine.document import Document, EmbeddedDocument
-from .data_model.query import EmptyQuery, FieldQuery, QueryTerm
-from collections import defaultdict
-import logging
+
+from app.cascade.data_model.query import EmptyQuery, FieldQuery, QueryTerm
 
 
 logger = logging.getLogger(__name__)

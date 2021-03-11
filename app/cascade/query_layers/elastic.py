@@ -8,17 +8,19 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from .base import DataModelQueryLayer, DatabaseInfo, UserDatabaseInfo
-from elasticsearch import Elasticsearch
-from ..data_model.query import Operation, Sequence, FieldComparators, FieldComparison, QueryComparators, FieldQuery
-from ..data_model.event import DataModelQuery
-from ..analytics import AnalyticReference, CascadeAnalytic, ExternalAnalytic
-from mongoengine import StringField, ListField, IntField, BooleanField
-from ..database import EncryptedStringField
 import logging
 import datetime
+
 import dateutil.tz
 import dateutil.parser
+from mongoengine import StringField, ListField, IntField, BooleanField
+from elasticsearch import Elasticsearch
+
+from app.cascade.query_layers.base import DataModelQueryLayer, DatabaseInfo, UserDatabaseInfo
+from app.cascade.data_model.query import Operation, Sequence, FieldComparators, FieldComparison, QueryComparators, FieldQuery
+from app.cascade.data_model.event import DataModelQuery
+from app.cascade.analytics import AnalyticReference, CascadeAnalytic, ExternalAnalytic
+from app.cascade.database import EncryptedStringField
 
 
 logger = logging.getLogger(__name__)
@@ -154,7 +156,7 @@ class ElasticAbstraction(DataModelQueryLayer):
 
     @staticmethod
     def _escape_value(value):
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             return '{}'.format(value.replace('\\', '\\\\').
                                replace('\"', '\\"').
                                replace('(', '\\(').

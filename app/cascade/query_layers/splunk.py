@@ -8,21 +8,23 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from mongoengine import StringField, IntField
-from ..database import EncryptedStringField
-from .base import DataModelQueryLayer, DatabaseInfo, UserDatabaseInfo, QueryError
-from ..data_model.query import Operation, Sequence, QueryComparators, FieldComparators, FieldComparison
-from ..data_model.event import DataModelQuery
-from ..analytics import CascadeAnalytic, AnalyticReference, ExternalAnalytic, Analytic
-from ...utils import AuthenticationError
-import splunklib.client as client
-from splunklib.results import ResultsReader, Message
-import logging
+import math
 import json
 import datetime
 import dateutil
-import math
+import logging
 
+
+from mongoengine import StringField, IntField
+import splunklib.client as client
+from splunklib.results import ResultsReader, Message
+
+from app.cascade.database import EncryptedStringField
+from app.cascade.query_layers.base import DataModelQueryLayer, DatabaseInfo, UserDatabaseInfo, QueryError
+from app.cascade.data_model.query import Operation, Sequence, QueryComparators, FieldComparators, FieldComparison
+from app.cascade.data_model.event import DataModelQuery
+from app.cascade.analytics import CascadeAnalytic, AnalyticReference, ExternalAnalytic, Analytic
+from app.utils import AuthenticationError
 
 logger = logging.getLogger(__name__)
 
@@ -212,7 +214,7 @@ class SplunkAbstraction(DataModelQueryLayer):
 
     @staticmethod
     def _escape_value(value):
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             # json already does all the escaping for me
             escaped_value = json.dumps(value)
             return escaped_value

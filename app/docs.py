@@ -8,13 +8,15 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from server import app
-from flask import Response
-import markdown
 import re
 
+from flask import Response
+import markdown
 
-@app.route("/docs/<filebase>", methods=['GET'])
+from app.server import flask_app
+
+
+@flask_app.route("/docs/<filebase>", methods=['GET'])
 def serve_document(filebase):
     if "\\" in filebase or "/" in filebase or "." in filebase:
         return Response(status=404)

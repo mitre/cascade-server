@@ -11,11 +11,12 @@
 from __future__ import print_function
 import sys
 
-from . import async
-from . import server
-from . import api
-from . import users
-from . import utils
-from . import ws
-from . import docs
-from . import plugin_loader
+from app import async_wrapper
+from app import server
+from app import api
+from app import users
+from app import utils
+from app import ws
+from app import docs
+from app import plugin_loader
+from app import cascade

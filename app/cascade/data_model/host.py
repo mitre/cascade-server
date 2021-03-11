@@ -8,8 +8,9 @@
 #
 # (C) 2017 The MITRE Corporation.
 
-from ..database import UniqueDocument
 from mongoengine.fields import StringField, ListField, EmbeddedDocument, EmbeddedDocumentField, DateTimeField
+
+from app.cascade.database import UniqueDocument
 
 
 class IPLease(EmbeddedDocument):

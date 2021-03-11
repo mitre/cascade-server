@@ -9,16 +9,15 @@
 # (C) 2017 The MITRE Corporation.
 
 import datetime
-from collections import defaultdict
-from ..database import UniqueDocument
+
 from mongoengine.base import TopLevelDocumentMetaclass
 from mongoengine import DoesNotExist
-from mongoengine.document import Document
 from mongoengine.fields import (
     DateTimeField, DictField, ListField, ReferenceField, EmbeddedDocument, EmbeddedDocumentField,
     DynamicField, StringField, DecimalField
 )
 
+from app.cascade.database import UniqueDocument
 from app.cascade.data_model.host import Host
 from .query import QueryTerm, CompareString, FieldQuery, EmptyQuery, EmbeddedQueryTerm
 
@@ -70,9 +69,7 @@ class LabeledLink(EmbeddedDocument):
     label = StringField(required=True)
 
 
-# python3 looks like:
-# class HostSource(dict, metaclass=MetaSource)
-class DataModelEvent(UniqueDocument):
+class DataModelEvent(UniqueDocument, metaclass=DataModelEventMeta):
     """ This class refers to any event in the FMX Data Model as described in the Cyber Analytics Repository
     (https://car.mitre.org/wiki/Data_Model). The event consists of an object type, an action performed by or on
     that object (often refers to a state change), and a set of fields.
@@ -84,7 +81,6 @@ class DataModelEvent(UniqueDocument):
     :var fields: list of all acceptable fields for the object
     :var identifiers: list of the identifying fields for an event (given hostname, object, action and time)
     """
-    __metaclass__ = DataModelEventMeta
     meta = {
         'allow_inheritance': True,
         'abstract': False,
