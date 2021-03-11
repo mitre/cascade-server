@@ -1059,7 +1059,7 @@ def query_analytic_configuration(config_id, user=None):
 
 @api('/api/query/languages')
 def get_languages():
-    return mappings.keys(), HTTPStatus.OK
+    return list(mappings.keys()), HTTPStatus.OK
 
 
 @api('/api/query/parse', methods=['POST'])
