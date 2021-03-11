@@ -45,9 +45,10 @@ Documents, such as these guides are stored in the documents folder, as both Mark
       |    |-- user-guide(.md | .pdf)
       |    `-- technical-guide(.md | .pdf)
 
-The `misc/` directory contains useful but miscellaneous files. This directory is prepopulated with a few `.bson` files, which are used to initialize MongoDB, which CASCADE uses as its database.
+The `misc/` directory contains useful but miscellaneous files. This directory is prepopulated with a few `.bson` files, which are used to initialize MongoDB, which CASCADE uses as its database. The `splunk/` directory contains two configuration files that you must to deploy to your Splunk instance so that Splunk fields can match for Sysmon sensor with CASCADE data model.
 
       |-- misc/
+          `-- splunk/
 
 The web application is in the `www/` folder. The application is built with Bootstrap, Angular and d3 frameworks. The shared libraries are all consolidated into `lib/`. The app-specific developments are split off from commonly used directives, templates, and components, from page specific views.
 
