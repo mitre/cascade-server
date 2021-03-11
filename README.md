@@ -24,9 +24,15 @@ For more information on how CASCADE performs these activities refer to the [user
 The functionality is exposed via a RESTful API and a web interface. CASCADE uses Python Flask and Gevent
 to create an asynchronous HTTP server.
 
+## Interactive Demo:
+
+If you'd like to play around with Cascade and some sample data,
+check out the interactive demo in the [brawl-demo](./brawl-demo/)
+directory.
+
 ## Requirements
 There are a number of requirements to run CASCADE:
-* Python 2.7 and the associated libraries listed in the [requirements.txt](requirements.txt).
+* Python 3 and the associated libraries listed in the [requirements.txt](requirements.txt).
 * A MongoDB server running locally
 * CASCADE can retrieve sensor data stored in either Splunk or ElasticSearch. This data must be normalized 
 and stored in the [Cyber Analytic Repository](https://car.mitre.org/wiki/Main_Page) 
